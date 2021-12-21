@@ -8,15 +8,14 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import org.apache.log4j.PropertyConfigurator;
 
-import com.dedalow.Launcher;
+import com.dedalow.RunnerTest;
 import com.dedalow.utils.Utils;
-        import com.dedalow.utils.Constant;
 
 	public class ExtentHtml {
 		public static FileSystem fileSystem = FileSystems.getDefault();
 		public static String resources =  System.getProperty("user.dir") + fileSystem.getSeparator() + "resources";
-		public static Launcher launcher = new Launcher();
-		public static Constant constant = launcher.constant;
+		public static RunnerTest runnerTest = new RunnerTest();
+		
 		public static ExtentReports extent = new ExtentReports();
 		public static boolean isNotInitializated = false;
 		private static Logger logger = Utils.logger();
@@ -50,7 +49,7 @@ import com.dedalow.utils.Utils;
 		
 		public static void createTest() {
 			PropertyConfigurator.configure(resources + fileSystem.getSeparator() + "log4j.properties");
-			htmlReporter = new ExtentHtmlReporter(constant.folderLogs + fileSystem.getSeparator() + "3221qaResults.html");
+			htmlReporter = new ExtentHtmlReporter(RunnerTest.folderLogs + fileSystem.getSeparator() + "3221qacucumberResults.html");
 			htmlReporter.loadXMLConfig(System.getProperty("user.dir") + fileSystem.getSeparator() + "extent_config.xml");
 			customizeHtml(htmlReporter);
 			isNotInitializated = true;
