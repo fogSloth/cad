@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.dedalow.utils.Utils;
+import com.dedalow.report.Report;
 
 public class TestSuite {
 	public static Properties prop;
@@ -24,6 +25,6 @@ public class TestSuite {
 			Report.reportErrors(e.getMessage());
 		}
 		this.name = name;
-		this.testSuiteTL = prop.getProperty("Testlink.feature." + this.name);
+		this.testSuiteTL = prop.getProperty("Testlink.suite." + this.name);
 	}
 }
