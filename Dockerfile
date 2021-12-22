@@ -32,11 +32,11 @@ RUN mvn -s .m2/settings.xml package -DskipTests
 WORKDIR /projectFolderExe
 
 #Copy needs to build executable ZIP
-RUN cp -r /src/resources ./ && cp /src/target/3455qajunitExe.jar ./ && cp -r /src/target/lib ./
+RUN cp -r /src/resources ./ && cp /src/target/3455qacucumberExe.jar ./ && cp -r /src/target/lib ./
 COPY ./extent_config.xml ./
 COPY ./config.properties ./
 COPY ./README.md ./
-
+COPY ./features ./features
 
 
 
