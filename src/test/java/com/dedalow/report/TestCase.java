@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.dedalow.utils.Utils;
+import com.dedalow.report.Report;
 
 public class TestCase {
 	public String name;
@@ -26,7 +27,7 @@ public class TestCase {
 		}    
         this.name = name;
         this.result = result;
-        this.externalId = prop.getProperty("Testlink.scenario." + this.name);
+        this.externalId = prop.getProperty("Testlink.testCase." + this.name);
         this.notes = notes;
         this.screenShootsPaths = screenShootsPaths;
     }
