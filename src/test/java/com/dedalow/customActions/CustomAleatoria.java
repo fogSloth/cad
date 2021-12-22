@@ -1,5 +1,5 @@
 package com.dedalow.customActions;
-    
+
 
 
 import java.io.File;
@@ -89,7 +89,7 @@ public class CustomAleatoria {
 	 */
 	public void doCustomAleatoria(Class reflectiveClass) throws Exception {
 		getPrepareCustomAleatoria(reflectiveClass);
-		driver.findElement(By.xpath("//a[@href="/wiki/Especial:Aleatoria"]")).click();        
+		driver.findElement(By.xpath("//a[@href=\"/wiki/Especial:Aleatoria\"]")).click();        
 		Report.reportLog(reflectiveClass, "", "INFO", 0);
 	}
     

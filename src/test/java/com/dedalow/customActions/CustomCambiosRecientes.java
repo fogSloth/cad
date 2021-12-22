@@ -1,5 +1,5 @@
 package com.dedalow.customActions;
-    
+
 
 
 import java.io.File;
@@ -89,7 +89,7 @@ public class CustomCambiosRecientes {
 	 */
 	public void doCustomCambiosRecientes(Class reflectiveClass) throws Exception {
 		getPrepareCustomCambiosRecientes(reflectiveClass);
-		driver.findElement(By.xpath("//a[@href="/wiki/Especial:CambiosRecientes"]")).click();
+		driver.findElement(By.xpath("//a[@href=\"/wiki/Especial:CambiosRecientes\"]")).click();
 		Report.reportLog(reflectiveClass, "", "INFO", 0);
 	}
     
