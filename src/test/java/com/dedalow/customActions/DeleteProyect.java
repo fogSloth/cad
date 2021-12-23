@@ -1,5 +1,5 @@
 package com.dedalow.customActions;
-
+    
 import com.dedalow.actions.DeleteCreateGlobalAction;
 
 import java.io.File;
@@ -82,7 +82,7 @@ public class DeleteProyect {
      public void ActionDeleteProyect() throws Exception {
       String nameProyect = "globaljunit";
       By searchProyect = By.xpath("/html/body/div/div/div/section[2]/div/div/div[2]/div[1]/div[2]/div/label/input");
-      By selectProyect = By.xpath("//span[contains(text(),'\" + nameProyect + \"')]");
+      By selectProyect = By.xpath("//span[contains(text(),'" + nameProyect + "')]");
       By removeProyect = By.xpath("//button[contains(text(),'Delete Project ...')]");
       By checkConfirmation = By.xpath("/html/body/div[2]/div[2]/div/div/div[3]/button[1]");
       

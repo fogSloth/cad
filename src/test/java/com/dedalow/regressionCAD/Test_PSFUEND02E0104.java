@@ -56,7 +56,7 @@ public class Test_PSFUEND02E0104 {
     public static HashMap<String, String> excelSheet;
 
     
-    private static RegressionCADBeforeEach1 regressionCADBeforeEach1;
+    private static RegressionCADBeforeEach regressionCADBeforeEach;
 	private static FormPage formPage;
 	private static ButtonsPage buttonsPage;
 	private static DragAndDropPage dragAndDropPage;
@@ -65,35 +65,35 @@ public class Test_PSFUEND02E0104 {
 	private By AsyncCondition2 = By.id("doubleClickToOk");
 	private By AsyncCondition3 = By.id("doubleClickToOk");
 	private static By assertTitle4 = By.xpath("//h2");
+	private static By assertNameById1 = By.id("name");
+	private static By assertLastNameByXpathDoubleQuotes1 = By.xpath("//*[@id=\"lastName\"]");
+	private static By assertEmailByXpathSingleQuote1 = By.xpath("//*[@id='email']");
 	private static By assertPhoneByName1 = By.name("phone");
 	private static By assertContains1 = By.id("name");
 	private static By assertNotContains1 = By.id("name");
 	private static By assertDistinct1 = By.id("name");
-	private static By assertNameById1 = By.id("name");
-	private static By assertLastNameByXpathDoubleQuotes1 = By.xpath("//*[@id=\"lastName\"]");
-	private static By assertEmailByXpathSingleQuote1 = By.xpath("//*[@id='email']");
 	private static By assertTitle5 = By.xpath("//h2");
 	private static By assertTitle6 = By.xpath("//h2");
 	private static By assertTitle7 = By.xpath("//h2");
 	private static By assertTitle8 = By.xpath("//h2");
+	private static By assertNameById2 = By.id("name");
+	private static By assertLastNameByXpathDoubleQuotes2 = By.xpath("//*[@id=\"lastName\"]");
+	private static By assertEmailByXpathSingleQuote2 = By.xpath("//*[@id='email']");
 	private static By assertPhoneByName2 = By.name("phone");
 	private static By assertContains2 = By.id("name");
 	private static By assertNotContains2 = By.id("name");
 	private static By assertDistinct2 = By.id("name");
-	private static By assertNameById2 = By.id("name");
-	private static By assertLastNameByXpathDoubleQuotes2 = By.xpath("//*[@id=\"lastName\"]");
-	private static By assertEmailByXpathSingleQuote2 = By.xpath("//*[@id='email']");
 	private static By assertTitle9 = By.xpath("//h2");
 	private static By assertTitle10 = By.xpath("//h2");
 	private static By assertTitle11 = By.xpath("//h2");
 	private static By assertTitle12 = By.xpath("//h2");
+	private static By assertNameById3 = By.id("name");
+	private static By assertLastNameByXpathDoubleQuotes3 = By.xpath("//*[@id=\"lastName\"]");
+	private static By assertEmailByXpathSingleQuote3 = By.xpath("//*[@id='email']");
 	private static By assertPhoneByName3 = By.name("phone");
 	private static By assertContains3 = By.id("name");
 	private static By assertNotContains3 = By.id("name");
 	private static By assertDistinct3 = By.id("name");
-	private static By assertNameById3 = By.id("name");
-	private static By assertLastNameByXpathDoubleQuotes3 = By.xpath("//*[@id=\"lastName\"]");
-	private static By assertEmailByXpathSingleQuote3 = By.xpath("//*[@id='email']");
 	private static By assertTitle13 = By.xpath("//h2");
 	private static By assertTitle14 = By.xpath("//h2");
 	private static By assertTitle15 = By.xpath("//h2");
@@ -106,7 +106,7 @@ public class Test_PSFUEND02E0104 {
             constant.test = constant.initialize.getTest();
             driver = setUpEnvironment(folderDownloads, prop, "MAIN_CONTEXT", constant.contextsDriver);
                 
-        	regressionCADBeforeEach1.doBeforeEach1();
+        	regressionCADBeforeEach.doBeforeEach();
         } catch (AssertionError | Exception e) {
             Report.reportErrors(e.getMessage());
 			finalResult = "BQ";
@@ -123,7 +123,19 @@ public class Test_PSFUEND02E0104 {
             
 			formPage.fillInputs();
             
-			new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName1));
+			new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById1));
+            Report.reportLog(reflectiveClass, "Condition assertNameById1 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a name".equals(driver.findElement(assertNameById1).getAttribute("ng-reflect-model")), "Field assertNameById1 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes1));
+            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes1 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes1).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes1 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote1));
+            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote1 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote1).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote1 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName1));
             Report.reportLog(reflectiveClass, "Condition assertPhoneByName1 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue("123456".equals(driver.findElement(assertPhoneByName1).getAttribute("ng-reflect-model")), "Field assertPhoneByName1 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field 123456 has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
@@ -139,18 +151,6 @@ public class Test_PSFUEND02E0104 {
             Report.reportLog(reflectiveClass, "Condition assertDistinct1 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue(!"another name".equals(driver.findElement(assertDistinct1).getAttribute("ng-reflect-model")), "Field assertDistinct1 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field another name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById1));
-            Report.reportLog(reflectiveClass, "Condition assertNameById1 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a name".equals(driver.findElement(assertNameById1).getAttribute("ng-reflect-model")), "Field assertNameById1 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes1));
-            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes1 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes1).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes1 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote1));
-            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote1 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote1).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote1 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
             
             Report.reportLog(reflectiveClass, "The field assertInputs has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
@@ -230,7 +230,19 @@ public class Test_PSFUEND02E0104 {
             Report.reportLog(reflectiveClass, "Navigated to " + "https://cad-uat-cadqa-supertestui.caddev.everis.com/", "INFO", 0, Status.PASS, true, "", "", null);
 			formPage.fillInputs1();
             
-			new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName2));
+			new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById2));
+            Report.reportLog(reflectiveClass, "Condition assertNameById2 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a name".equals(driver.findElement(assertNameById2).getAttribute("ng-reflect-model")), "Field assertNameById2 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes2));
+            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes2 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes2).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes2 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote2));
+            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote2 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote2).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote2 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName2));
             Report.reportLog(reflectiveClass, "Condition assertPhoneByName2 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue("123456".equals(driver.findElement(assertPhoneByName2).getAttribute("ng-reflect-model")), "Field assertPhoneByName2 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field 123456 has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
@@ -246,18 +258,6 @@ public class Test_PSFUEND02E0104 {
             Report.reportLog(reflectiveClass, "Condition assertDistinct2 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue(!"another name".equals(driver.findElement(assertDistinct2).getAttribute("ng-reflect-model")), "Field assertDistinct2 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field another name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById2));
-            Report.reportLog(reflectiveClass, "Condition assertNameById2 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a name".equals(driver.findElement(assertNameById2).getAttribute("ng-reflect-model")), "Field assertNameById2 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes2));
-            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes2 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes2).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes2 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote2));
-            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote2 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote2).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote2 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
             
             Report.reportLog(reflectiveClass, "The field assertInputs1 has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
@@ -340,7 +340,19 @@ public class Test_PSFUEND02E0104 {
             Report.reportLog(reflectiveClass, "Navigated to " + "https://cad-uat-cadqa-supertestui.caddev.everis.com/", "INFO", 0, Status.PASS, true, "", "", null);
 			formPage.fillInputs2();
             
-			new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName3));
+			new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById3));
+            Report.reportLog(reflectiveClass, "Condition assertNameById3 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a name".equals(driver.findElement(assertNameById3).getAttribute("ng-reflect-model")), "Field assertNameById3 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes3));
+            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes3 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes3).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes3 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote3));
+            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote3 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote3).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote3 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName3));
             Report.reportLog(reflectiveClass, "Condition assertPhoneByName3 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue("123456".equals(driver.findElement(assertPhoneByName3).getAttribute("ng-reflect-model")), "Field assertPhoneByName3 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field 123456 has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
@@ -356,18 +368,6 @@ public class Test_PSFUEND02E0104 {
             Report.reportLog(reflectiveClass, "Condition assertDistinct3 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue(!"another name".equals(driver.findElement(assertDistinct3).getAttribute("ng-reflect-model")), "Field assertDistinct3 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field another name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById3));
-            Report.reportLog(reflectiveClass, "Condition assertNameById3 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a name".equals(driver.findElement(assertNameById3).getAttribute("ng-reflect-model")), "Field assertNameById3 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes3));
-            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes3 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes3).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes3 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote3));
-            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote3 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote3).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote3 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
             
             Report.reportLog(reflectiveClass, "The field assertInputs2 has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
@@ -477,7 +477,7 @@ public class Test_PSFUEND02E0104 {
         driver = driverInit.driverSelector(folderDownloads, prop, nameDriver, contextsDriver);
             handler = driver.getWindowHandle();
         reflectiveClass = Utils.getReflective(Test_PSFUEND02E0104.class.getCanonicalName());
-			regressionCADBeforeEach1 = new RegressionCADBeforeEach1(reflectiveClass);
+			regressionCADBeforeEach = new RegressionCADBeforeEach(reflectiveClass);
 		formPage = new FormPage(reflectiveClass);
 		buttonsPage = new ButtonsPage(reflectiveClass);
 		dragAndDropPage = new DragAndDropPage(reflectiveClass);

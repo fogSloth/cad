@@ -32,7 +32,7 @@ import io.restassured.response.Response;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
-public class Release6BeforeEach{
+public class Release6BeforeEach1{
 
     private Class reflectiveClass;
     private Constant constant;
@@ -53,7 +53,7 @@ public class Release6BeforeEach{
     
     
 	private static By CheckEmail = By.xpath("//label[contains(text(),'Email')]");
-	private static By CheckTitle = By.xpath("//h2[contains(text(),'formPage')]");
+	private static By CheckTitle1 = By.xpath("//h2[contains(text(),'formPage')]");
 	private static By checkFirstName = By.xpath("//label[contains(text(),'Name')]");
 	private static By CheckLastName = By.xpath("//label[contains(text(),'LastName')]");
     
@@ -61,7 +61,7 @@ public class Release6BeforeEach{
 	private static By SaveLastName = By.xpath("//label[contains(text(),'LastName')]");
 	private static By SaveEmail = By.xpath("//label[contains(text(),'Email')]");
 
-    public Release6BeforeEach(Class reflectiveClass) throws Exception {
+    public Release6BeforeEach1(Class reflectiveClass) throws Exception {
         this.reflectiveClass = reflectiveClass;
         getPrepareBeforeEach();
         js = (JavascriptExecutor)driver;
@@ -84,12 +84,12 @@ public class Release6BeforeEach{
       this.caseName = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
     }
     
-    public void doBeforeEach() throws Exception {
+    public void doBeforeEach1() throws Exception {
 HashMap<String, String> BeforeEachVariable = new HashMap<String, String>();
-			BeforeEachVariable.put("BeforeEachVariable", "formPage");
+			BeforeEachVariable.put("BeforeEach-Variable", "formPage");
 			
 			
-            Report.reportLog(reflectiveClass, "BeforeEach BeforeEach of execution", "INFO", 0, Status.PASS, false, "", "", null);
+            Report.reportLog(reflectiveClass, "BeforeEach BeforeEach1 of execution", "INFO", 0, Status.PASS, false, "", "", null);
             
 			driver.get("https://cad-uat-cadqa-supertestui.caddev.everis.com/");
             Report.reportLog(reflectiveClass, "Navigated to " + "https://cad-uat-cadqa-supertestui.caddev.everis.com/", "INFO", 0, Status.PASS, true, "", "", null);
@@ -97,38 +97,38 @@ HashMap<String, String> BeforeEachVariable = new HashMap<String, String>();
 			assertTrue(driver.getCurrentUrl().equals("https://cad-uat-cadqa-supertestui.caddev.everis.com/"), "Field CheckPage1 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field https://cad-uat-cadqa-supertestui.caddev.everis.com/ has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
-			assertTrue(BeforeEachVariable.get("BeforeEachVariable").equals(driver.findElement(CheckTitle).getText()), "Field CheckTitle not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEachVariable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+			assertTrue(BeforeEachVariable.get("BeforeEach-Variable").equals(driver.findElement(CheckTitle1).getText()), "Field CheckTitle1 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEach-Variable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
-            BeforeEachVariable.put("BeforeEachVariable", driver.findElement(SaveFirstName).getText());
-            Report.reportLog(reflectiveClass, "New value for the variable BeforeEachVariable = " + driver.findElement(SaveFirstName).getText(), "INFO", 0, Status.PASS, false, "", "", null);
+            BeforeEachVariable.put("BeforeEach-Variable", driver.findElement(SaveFirstName).getText());
+            Report.reportLog(reflectiveClass, "New value for the variable BeforeEach-Variable = " + driver.findElement(SaveFirstName).getText(), "INFO", 0, Status.PASS, false, "", "", null);
 
             Report.reportLog(reflectiveClass, "The field CheckPage has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
             release6Page.ClickFirstName(BeforeEachVariable);
             
 			
-			assertTrue(BeforeEachVariable.get("BeforeEachVariable").equals(driver.findElement(checkFirstName).getText()), "Field checkFirstName not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEachVariable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+			assertTrue(BeforeEachVariable.get("BeforeEach-Variable").equals(driver.findElement(checkFirstName).getText()), "Field checkFirstName not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEach-Variable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
-            BeforeEachVariable.put("BeforeEachVariable", driver.findElement(SaveLastName).getText());
-            Report.reportLog(reflectiveClass, "New value for the variable BeforeEachVariable = " + driver.findElement(SaveLastName).getText(), "INFO", 0, Status.PASS, false, "", "", null);
+            BeforeEachVariable.put("BeforeEach-Variable", driver.findElement(SaveLastName).getText());
+            Report.reportLog(reflectiveClass, "New value for the variable BeforeEach-Variable = " + driver.findElement(SaveLastName).getText(), "INFO", 0, Status.PASS, false, "", "", null);
 
             Report.reportLog(reflectiveClass, "The field StoreLastName has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
             release6Page.ClickLastName(BeforeEachVariable);
             
 			
-			assertTrue(BeforeEachVariable.get("BeforeEachVariable").equals(driver.findElement(CheckLastName).getText()), "Field CheckLastName not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEachVariable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+			assertTrue(BeforeEachVariable.get("BeforeEach-Variable").equals(driver.findElement(CheckLastName).getText()), "Field CheckLastName not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEach-Variable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
-            BeforeEachVariable.put("BeforeEachVariable", driver.findElement(SaveEmail).getText());
-            Report.reportLog(reflectiveClass, "New value for the variable BeforeEachVariable = " + driver.findElement(SaveEmail).getText(), "INFO", 0, Status.PASS, false, "", "", null);
+            BeforeEachVariable.put("BeforeEach-Variable", driver.findElement(SaveEmail).getText());
+            Report.reportLog(reflectiveClass, "New value for the variable BeforeEach-Variable = " + driver.findElement(SaveEmail).getText(), "INFO", 0, Status.PASS, false, "", "", null);
 
             Report.reportLog(reflectiveClass, "The field StoreEmail has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
             release6Page.ClickEmail(BeforeEachVariable);
             
 			
-			assertTrue(BeforeEachVariable.get("BeforeEachVariable").equals(driver.findElement(CheckEmail).getText()), "Field CheckEmail not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEachVariable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+			assertTrue(BeforeEachVariable.get("BeforeEach-Variable").equals(driver.findElement(CheckEmail).getText()), "Field CheckEmail not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field "+BeforeEachVariable.get("BeforeEach-Variable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
             
             Report.reportLog(reflectiveClass, "The field AssertEmail has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);

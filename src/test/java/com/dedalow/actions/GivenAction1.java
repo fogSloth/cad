@@ -45,9 +45,9 @@ public class GivenAction1{
       
 	private By UseExcel = By.name("name");
 	private By LastName = By.name("lastName");
-	private By Email = By.name("email");
 	private By Name = By.name("name");
 	private By Phone = By.name("phone");
+	private By Email = By.name("email");
     
     public GivenAction1(Class reflectiveClass) throws Exception {
         this.reflectiveClass = reflectiveClass;
@@ -81,15 +81,15 @@ public class GivenAction1{
         	driver.findElement(LastName).clear();
             driver.findElement(LastName).sendKeys(excelSheet.get("LastName:MultipleParameter"));
             Report.reportLog(reflectiveClass, "Typed " + excelSheet.get("LastName:MultipleParameter") + " in LastName", "INFO", 0, Status.PASS, true, "", "", null);
-					driver.findElement(Email).clear();
-            driver.findElement(Email).sendKeys(excelSheet.get("Email:MultipleParameter"));
-            Report.reportLog(reflectiveClass, "Typed " + excelSheet.get("Email:MultipleParameter") + " in Email", "INFO", 0, Status.PASS, true, "", "", null);
 					driver.findElement(Name).clear();
             driver.findElement(Name).sendKeys(excelSheet.get("Name:MultipleParameter"));
             Report.reportLog(reflectiveClass, "Typed " + excelSheet.get("Name:MultipleParameter") + " in Name", "INFO", 0, Status.PASS, true, "", "", null);
 					driver.findElement(Phone).clear();
             driver.findElement(Phone).sendKeys(excelSheet.get("Phone:MultipleParameter"));
             Report.reportLog(reflectiveClass, "Typed " + excelSheet.get("Phone:MultipleParameter") + " in Phone", "INFO", 0, Status.PASS, true, "", "", null);
+					driver.findElement(Email).clear();
+            driver.findElement(Email).sendKeys(excelSheet.get("Email:MultipleParameter"));
+            Report.reportLog(reflectiveClass, "Typed " + excelSheet.get("Email:MultipleParameter") + " in Email", "INFO", 0, Status.PASS, true, "", "", null);
 				
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(UseExcel));
             Report.reportLog(reflectiveClass, "Condition UseExcel isClickable finished", "ASYNCHRONOUS", 0);

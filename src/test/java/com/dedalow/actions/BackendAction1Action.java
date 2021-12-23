@@ -262,7 +262,9 @@ public class BackendAction1Action{
     
     
     public void doBackendAction1Action() throws Exception {
-    
+    	HashMap<String, String> testActionVariable = new HashMap<String, String>();
+		testActionVariable.put("VariableBackend", "");
+	
     
 		postPOST3();
     

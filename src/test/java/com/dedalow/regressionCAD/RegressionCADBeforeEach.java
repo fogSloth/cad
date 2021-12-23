@@ -32,7 +32,7 @@ import io.restassured.response.Response;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
-public class RegressionCADBeforeEach1{
+public class RegressionCADBeforeEach{
 
     private Class reflectiveClass;
     private Constant constant;
@@ -54,7 +54,7 @@ public class RegressionCADBeforeEach1{
     
     
 
-    public RegressionCADBeforeEach1(Class reflectiveClass) throws Exception {
+    public RegressionCADBeforeEach(Class reflectiveClass) throws Exception {
         this.reflectiveClass = reflectiveClass;
         getPrepareBeforeEach();
         js = (JavascriptExecutor)driver;
@@ -77,9 +77,9 @@ public class RegressionCADBeforeEach1{
       this.caseName = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
     }
     
-    public void doBeforeEach1() throws Exception {
+    public void doBeforeEach() throws Exception {
 
-            Report.reportLog(reflectiveClass, "BeforeEach BeforeEach1 of execution", "INFO", 0, Status.PASS, false, "", "", null);
+            Report.reportLog(reflectiveClass, "BeforeEach BeforeEach of execution", "INFO", 0, Status.PASS, false, "", "", null);
             
 			
 			goToAppGlobalAction.doGoToAppGlobalAction();

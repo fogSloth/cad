@@ -60,12 +60,12 @@ public class Test_PSFUEND02E0105 {
     
 	private static By titleH11 = By.xpath("//h1[contains(text(),'HTML For Beginners')]");
 	private static By Name2 = By.name("name");
+	private static By Phone2 = By.name("phone");
 	private static By LastName2 = By.name("lastName");
 	private static By Email2 = By.name("email");
-	private static By Phone2 = By.name("phone");
+	private static By City2 = By.name("city");
 	private static By ZipCode2 = By.name("zipcode");
 	private static By Address2 = By.name("address");
-	private static By City2 = By.name("city");
 	private static By Website2 = By.name("website");
 	private static By Textarea2 = By.name("textArea");
     
@@ -107,14 +107,14 @@ public class Test_PSFUEND02E0105 {
 			assertTrue(excelSheet.get("Name:CheckText").equals(driver.findElement(Name2).getAttribute("value")), "Field Name2 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("Name:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
+			assertTrue(excelSheet.get("Phone:CheckText").equals(driver.findElement(Phone2).getAttribute("value")), "Field Phone2 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("Phone:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            
 			assertTrue(excelSheet.get("LastName:CheckText").equals(driver.findElement(LastName2).getAttribute("value")), "Field LastName2 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("LastName:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
 			assertTrue(excelSheet.get("Email:CheckText").equals(driver.findElement(Email2).getAttribute("value")), "Field Email2 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("Email:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            
-			assertTrue(excelSheet.get("Phone:CheckText").equals(driver.findElement(Phone2).getAttribute("value")), "Field Phone2 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("Phone:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
             
             Report.reportLog(reflectiveClass, "The field CheckExcel1 has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
@@ -143,14 +143,14 @@ public class Test_PSFUEND02E0105 {
 			assertTrue(driver.getCurrentUrl().equals("https://cad-uat-cadqa-supertestui.caddev.everis.com/"), "Field CheckExcel21 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field https://cad-uat-cadqa-supertestui.caddev.everis.com/ has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
+			assertTrue(excelSheet.get("City:CheckText").equals(driver.findElement(City2).getAttribute("value")), "Field City2 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("City:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            
 			assertTrue(excelSheet.get("ZipCode:CheckText").equals(driver.findElement(ZipCode2).getAttribute("value")), "Field ZipCode2 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("ZipCode:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
 			assertTrue(excelSheet.get("Address:CheckText").equals(driver.findElement(Address2).getAttribute("value")), "Field Address2 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("Address:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            
-			assertTrue(excelSheet.get("City:CheckText").equals(driver.findElement(City2).getAttribute("value")), "Field City2 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field "+ excelSheet.get("City:CheckText") +" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
             
             Report.reportLog(reflectiveClass, "The field CheckExcel2 has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);

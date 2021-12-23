@@ -133,8 +133,8 @@ public class Release6Page {
         
 	public Release6Page ClickEmail(HashMap<String, String> variables) throws Exception {
         	driver.findElement(WriteEmail).clear();
-                driver.findElement(WriteEmail).sendKeys(variables.get("BeforeEachVariable"));
-                Report.reportLog(reflectiveClass, "Typed " + variables.get("BeforeEachVariable") + " in WriteEmail", "INFO", 0, Status.PASS, true, "", "", null);
+                driver.findElement(WriteEmail).sendKeys(variables.get("BeforeEach-Variable"));
+                Report.reportLog(reflectiveClass, "Typed " + variables.get("BeforeEach-Variable") + " in WriteEmail", "INFO", 0, Status.PASS, true, "", "", null);
 		
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(ClickEmail));
             Report.reportLog(reflectiveClass, "Condition ClickEmail isClickable finished", "ASYNCHRONOUS", 0);
@@ -145,8 +145,8 @@ public class Release6Page {
         
 	public Release6Page ClickLastName(HashMap<String, String> variables) throws Exception {
         	driver.findElement(WriteLastName).clear();
-                driver.findElement(WriteLastName).sendKeys(variables.get("BeforeEachVariable"));
-                Report.reportLog(reflectiveClass, "Typed " + variables.get("BeforeEachVariable") + " in WriteLastName", "INFO", 0, Status.PASS, true, "", "", null);
+                driver.findElement(WriteLastName).sendKeys(variables.get("BeforeEach-Variable"));
+                Report.reportLog(reflectiveClass, "Typed " + variables.get("BeforeEach-Variable") + " in WriteLastName", "INFO", 0, Status.PASS, true, "", "", null);
 		
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(ClickLastName));
             Report.reportLog(reflectiveClass, "Condition ClickLastName isClickable finished", "ASYNCHRONOUS", 0);
@@ -157,8 +157,8 @@ public class Release6Page {
         
 	public Release6Page ClickFirstName(HashMap<String, String> variables) throws Exception {
         	driver.findElement(WriteFirstName).clear();
-                driver.findElement(WriteFirstName).sendKeys(variables.get("BeforeEachVariable"));
-                Report.reportLog(reflectiveClass, "Typed " + variables.get("BeforeEachVariable") + " in WriteFirstName", "INFO", 0, Status.PASS, true, "", "", null);
+                driver.findElement(WriteFirstName).sendKeys(variables.get("BeforeEach-Variable"));
+                Report.reportLog(reflectiveClass, "Typed " + variables.get("BeforeEach-Variable") + " in WriteFirstName", "INFO", 0, Status.PASS, true, "", "", null);
 		
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(ClickFirstName));
             Report.reportLog(reflectiveClass, "Condition ClickFirstName isClickable finished", "ASYNCHRONOUS", 0);

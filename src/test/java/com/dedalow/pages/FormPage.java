@@ -33,19 +33,19 @@ public class FormPage {
     
 	private By fillInputs = By.id("name");
 	private By nameById1 = By.id("name");
-	private By phoneByName1 = By.name("phone");
 	private By lastNameByXpathAndDoubleQuotes1 = By.xpath("//input[@id=\"lastName\"]");
 	private By emailByXpathAndSimpleQuote1 = By.xpath("//input[@id='email']");
+	private By phoneByName1 = By.name("phone");
 	private By fillInputs1 = By.id("name");
 	private By nameById2 = By.id("name");
-	private By phoneByName2 = By.name("phone");
 	private By lastNameByXpathAndDoubleQuotes2 = By.xpath("//input[@id=\"lastName\"]");
 	private By emailByXpathAndSimpleQuote2 = By.xpath("//input[@id='email']");
+	private By phoneByName2 = By.name("phone");
 	private By fillInputs2 = By.id("name");
 	private By nameById3 = By.id("name");
-	private By phoneByName3 = By.name("phone");
 	private By lastNameByXpathAndDoubleQuotes3 = By.xpath("//input[@id=\"lastName\"]");
 	private By emailByXpathAndSimpleQuote3 = By.xpath("//input[@id='email']");
+	private By phoneByName3 = By.name("phone");
 	private By uploadFile = By.id("uploadFile");
 	private By dummyClickToForceWait = By.id("name");
 	private By downloadFile = By.xpath("//button[contains(text(), 'Download uploadFilefileName')]");
@@ -69,15 +69,15 @@ public class FormPage {
         	driver.findElement(nameById1).clear();
             driver.findElement(nameById1).sendKeys("a name");
             Report.reportLog(reflectiveClass, "Typed " + "a name in nameById1", "INFO", 0, Status.PASS, true, "", "", null);
-			driver.findElement(phoneByName1).clear();
-            driver.findElement(phoneByName1).sendKeys("123456");
-            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName1", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(lastNameByXpathAndDoubleQuotes1).clear();
             driver.findElement(lastNameByXpathAndDoubleQuotes1).sendKeys("a last name");
             Report.reportLog(reflectiveClass, "Typed " + "a last name in lastNameByXpathAndDoubleQuotes1", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(emailByXpathAndSimpleQuote1).clear();
             driver.findElement(emailByXpathAndSimpleQuote1).sendKeys("an email");
             Report.reportLog(reflectiveClass, "Typed " + "an email in emailByXpathAndSimpleQuote1", "INFO", 0, Status.PASS, true, "", "", null);
+			driver.findElement(phoneByName1).clear();
+            driver.findElement(phoneByName1).sendKeys("123456");
+            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName1", "INFO", 0, Status.PASS, true, "", "", null);
 		
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(fillInputs));
             Report.reportLog(reflectiveClass, "Condition fillInputs isClickable finished", "ASYNCHRONOUS", 0);
@@ -90,15 +90,15 @@ public class FormPage {
         	driver.findElement(nameById2).clear();
             driver.findElement(nameById2).sendKeys("a name");
             Report.reportLog(reflectiveClass, "Typed " + "a name in nameById2", "INFO", 0, Status.PASS, true, "", "", null);
-			driver.findElement(phoneByName2).clear();
-            driver.findElement(phoneByName2).sendKeys("123456");
-            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName2", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(lastNameByXpathAndDoubleQuotes2).clear();
             driver.findElement(lastNameByXpathAndDoubleQuotes2).sendKeys("a last name");
             Report.reportLog(reflectiveClass, "Typed " + "a last name in lastNameByXpathAndDoubleQuotes2", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(emailByXpathAndSimpleQuote2).clear();
             driver.findElement(emailByXpathAndSimpleQuote2).sendKeys("an email");
             Report.reportLog(reflectiveClass, "Typed " + "an email in emailByXpathAndSimpleQuote2", "INFO", 0, Status.PASS, true, "", "", null);
+			driver.findElement(phoneByName2).clear();
+            driver.findElement(phoneByName2).sendKeys("123456");
+            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName2", "INFO", 0, Status.PASS, true, "", "", null);
 		
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(fillInputs1));
             Report.reportLog(reflectiveClass, "Condition fillInputs1 isClickable finished", "ASYNCHRONOUS", 0);
@@ -111,15 +111,15 @@ public class FormPage {
         	driver.findElement(nameById3).clear();
             driver.findElement(nameById3).sendKeys("a name");
             Report.reportLog(reflectiveClass, "Typed " + "a name in nameById3", "INFO", 0, Status.PASS, true, "", "", null);
-			driver.findElement(phoneByName3).clear();
-            driver.findElement(phoneByName3).sendKeys("123456");
-            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName3", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(lastNameByXpathAndDoubleQuotes3).clear();
             driver.findElement(lastNameByXpathAndDoubleQuotes3).sendKeys("a last name");
             Report.reportLog(reflectiveClass, "Typed " + "a last name in lastNameByXpathAndDoubleQuotes3", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(emailByXpathAndSimpleQuote3).clear();
             driver.findElement(emailByXpathAndSimpleQuote3).sendKeys("an email");
             Report.reportLog(reflectiveClass, "Typed " + "an email in emailByXpathAndSimpleQuote3", "INFO", 0, Status.PASS, true, "", "", null);
+			driver.findElement(phoneByName3).clear();
+            driver.findElement(phoneByName3).sendKeys("123456");
+            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName3", "INFO", 0, Status.PASS, true, "", "", null);
 		
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(fillInputs2));
             Report.reportLog(reflectiveClass, "Condition fillInputs2 isClickable finished", "ASYNCHRONOUS", 0);
@@ -131,8 +131,8 @@ public class FormPage {
 	public FormPage uploadFile() throws Exception {
         
             
-            driver.findElement(uploadFile).sendKeys("/tmp/Swagger.json");
-            Report.reportLog(reflectiveClass, "uploadFile: /tmp/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
+            driver.findElement(uploadFile).sendKeys("C:/Users/jperepei/generated/Swagger.json");
+            Report.reportLog(reflectiveClass, "uploadFile: C:/Users/jperepei/generated/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
             return this;
 	}
         
@@ -175,16 +175,16 @@ public class FormPage {
 	public FormPage uploadFile1() throws Exception {
         
             
-            driver.findElement(uploadFile1).sendKeys("/tmp/Swagger.json");
-            Report.reportLog(reflectiveClass, "uploadFile1: /tmp/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
+            driver.findElement(uploadFile1).sendKeys("C:/Users/jperepei/generated/Swagger.json");
+            Report.reportLog(reflectiveClass, "uploadFile1: C:/Users/jperepei/generated/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
             return this;
 	}
         
 	public FormPage uploadFile2() throws Exception {
         
             
-            driver.findElement(uploadFile2).sendKeys("/tmp/Swagger.json");
-            Report.reportLog(reflectiveClass, "uploadFile2: /tmp/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
+            driver.findElement(uploadFile2).sendKeys("C:/Users/jperepei/generated/Swagger.json");
+            Report.reportLog(reflectiveClass, "uploadFile2: C:/Users/jperepei/generated/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
             return this;
 	}
         

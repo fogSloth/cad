@@ -54,16 +54,16 @@ public class SimpleActionsGlobalAction{
 	private static By assertTitle18 = By.xpath("//h2");
 	private By fillInputs1 = By.id("name");
 	private By nameById4 = By.id("name");
-	private By phoneByName4 = By.name("phone");
 	private By lastNameByXpathAndDoubleQuotes4 = By.xpath("//input[@id=\"lastName\"]");
 	private By emailByXpathAndSimpleQuote4 = By.xpath("//input[@id='email']");
+	private By phoneByName4 = By.name("phone");
+	private static By assertNameById4 = By.id("name");
+	private static By assertLastNameByXpathDoubleQuotes4 = By.xpath("//*[@id=\"lastName\"]");
+	private static By assertEmailByXpathSingleQuote4 = By.xpath("//*[@id='email']");
 	private static By assertPhoneByName4 = By.name("phone");
 	private static By assertContains4 = By.id("name");
 	private static By assertNotContains4 = By.id("name");
 	private static By assertDistinct4 = By.id("name");
-	private static By assertNameById4 = By.id("name");
-	private static By assertLastNameByXpathDoubleQuotes4 = By.xpath("//*[@id=\"lastName\"]");
-	private static By assertEmailByXpathSingleQuote4 = By.xpath("//*[@id='email']");
 	private By leftClickById1 = By.id("clickToOk");
 	private static By assertTitle19 = By.xpath("//h2");
 	private By disableButtons4 = By.id("disableButtons");
@@ -102,15 +102,15 @@ public class SimpleActionsGlobalAction{
         	driver.findElement(nameById4).clear();
             driver.findElement(nameById4).sendKeys("a name");
             Report.reportLog(reflectiveClass, "Typed " + "a name in nameById4", "INFO", 0, Status.PASS, true, "", "", null);
-			driver.findElement(phoneByName4).clear();
-            driver.findElement(phoneByName4).sendKeys("123456");
-            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName4", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(lastNameByXpathAndDoubleQuotes4).clear();
             driver.findElement(lastNameByXpathAndDoubleQuotes4).sendKeys("a last name");
             Report.reportLog(reflectiveClass, "Typed " + "a last name in lastNameByXpathAndDoubleQuotes4", "INFO", 0, Status.PASS, true, "", "", null);
 			driver.findElement(emailByXpathAndSimpleQuote4).clear();
             driver.findElement(emailByXpathAndSimpleQuote4).sendKeys("an email");
             Report.reportLog(reflectiveClass, "Typed " + "an email in emailByXpathAndSimpleQuote4", "INFO", 0, Status.PASS, true, "", "", null);
+			driver.findElement(phoneByName4).clear();
+            driver.findElement(phoneByName4).sendKeys("123456");
+            Report.reportLog(reflectiveClass, "Typed " + "123456 in phoneByName4", "INFO", 0, Status.PASS, true, "", "", null);
 		
             new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(fillInputs1));
             Report.reportLog(reflectiveClass, "Condition fillInputs1 isClickable finished", "ASYNCHRONOUS", 0);
@@ -120,7 +120,19 @@ public class SimpleActionsGlobalAction{
       }
       
 	public SimpleActionsGlobalAction assertInputs1() {
-        new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName4));
+        new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById4));
+            Report.reportLog(reflectiveClass, "Condition assertNameById4 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a name".equals(driver.findElement(assertNameById4).getAttribute("ng-reflect-model")), "Field assertNameById4 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes4));
+            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes4 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes4).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes4 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote4));
+            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote4 isVisible finished", "ASYNCHRONOUS", 0);
+			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote4).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote4 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertPhoneByName4));
             Report.reportLog(reflectiveClass, "Condition assertPhoneByName4 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue("123456".equals(driver.findElement(assertPhoneByName4).getAttribute("ng-reflect-model")), "Field assertPhoneByName4 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field 123456 has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
@@ -136,18 +148,6 @@ public class SimpleActionsGlobalAction{
             Report.reportLog(reflectiveClass, "Condition assertDistinct4 isVisible finished", "ASYNCHRONOUS", 0);
 			assertTrue(!"another name".equals(driver.findElement(assertDistinct4).getAttribute("ng-reflect-model")), "Field assertDistinct4 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field another name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertNameById4));
-            Report.reportLog(reflectiveClass, "Condition assertNameById4 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a name".equals(driver.findElement(assertNameById4).getAttribute("ng-reflect-model")), "Field assertNameById4 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertLastNameByXpathDoubleQuotes4));
-            Report.reportLog(reflectiveClass, "Condition assertLastNameByXpathDoubleQuotes4 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("a last name".equals(driver.findElement(assertLastNameByXpathDoubleQuotes4).getAttribute("ng-reflect-model")), "Field assertLastNameByXpathDoubleQuotes4 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field a last name has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(assertEmailByXpathSingleQuote4));
-            Report.reportLog(reflectiveClass, "Condition assertEmailByXpathSingleQuote4 isVisible finished", "ASYNCHRONOUS", 0);
-			assertTrue("an email".equals(driver.findElement(assertEmailByXpathSingleQuote4).getAttribute("ng-reflect-model")), "Field assertEmailByXpathSingleQuote4 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field an email has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
         
         Report.reportLog(reflectiveClass, "The field assertInputs1 has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);

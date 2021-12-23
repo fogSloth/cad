@@ -60,12 +60,12 @@ public class Test_PSFUEND02E0107 {
     
 	private static By titleH11 = By.xpath("//h1[contains(text(),'HTML For Beginners')]");
 	private static By Name2 = By.name("name");
+	private static By Phone2 = By.name("phone");
 	private static By LastName2 = By.name("lastName");
 	private static By Email2 = By.name("email");
-	private static By Phone2 = By.name("phone");
+	private static By City2 = By.name("city");
 	private static By ZipCode2 = By.name("zipcode");
 	private static By Address2 = By.name("address");
-	private static By City2 = By.name("city");
 	private static By Website2 = By.name("website");
 	private static By Textarea2 = By.name("textArea");
     

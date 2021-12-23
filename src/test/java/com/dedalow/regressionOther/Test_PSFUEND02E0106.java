@@ -58,12 +58,12 @@ public class Test_PSFUEND02E0106 {
     
 	private static By titleH11 = By.xpath("//h1[contains(text(),'HTML For Beginners')]");
 	private static By Name2 = By.name("name");
+	private static By Phone2 = By.name("phone");
 	private static By LastName2 = By.name("lastName");
 	private static By Email2 = By.name("email");
-	private static By Phone2 = By.name("phone");
+	private static By City2 = By.name("city");
 	private static By ZipCode2 = By.name("zipcode");
 	private static By Address2 = By.name("address");
-	private static By City2 = By.name("city");
 	private static By Website2 = By.name("website");
 	private static By Textarea2 = By.name("textArea");
     
@@ -143,7 +143,7 @@ public class Test_PSFUEND02E0106 {
         	Report.reportLog(reflectiveClass, "The field HTML For Beginners has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
             
-            Report.reportLog(reflectiveClass, "The field CheckTitle1 has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
+            Report.reportLog(reflectiveClass, "The field CheckTitle has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
             driver.switchTo().window(handler);
             driver.switchTo().defaultContent();
             Report.reportLog(reflectiveClass, "ContextChange ChangeHTMLInitialPage finished","INFO", 0, Status.PASS, true, "", "", null);

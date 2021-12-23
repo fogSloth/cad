@@ -332,16 +332,7 @@ public class Utils {
 
     public static ArrayList<String> getTestCases(String option, ArrayList<String> testCases) throws Exception {
         switch (option) {
-            case "release6":
-            	testCases.add("com.dedalow.release6.Test_PSFUEND02E0114");
-			
-            break;
-			case "release5":
-            	testCases.add("com.dedalow.release5.Test_PSFUEND02E0113");
-				testCases.add("com.dedalow.release5.Test_PSFUEND02E0112");
-			
-            break;
-			case "regressionCADActions":
+            case "regressionCADActions":
             	testCases.add("com.dedalow.regressionCADActions.Test_PSFUEND02E0108");
 			
             break;
@@ -361,12 +352,18 @@ public class Utils {
 				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0107");
 			
             break;
+			case "release5":
+            	testCases.add("com.dedalow.release5.Test_PSFUEND02E0113");
+				testCases.add("com.dedalow.release5.Test_PSFUEND02E0112");
+			
+            break;
+			case "release6":
+            	testCases.add("com.dedalow.release6.Test_PSFUEND02E0114");
+			
+            break;
 			
             case "complete":
-                	testCases.add("com.dedalow.release6.Test_PSFUEND02E0114");
-				testCases.add("com.dedalow.release5.Test_PSFUEND02E0113");
-				testCases.add("com.dedalow.release5.Test_PSFUEND02E0112");
-				testCases.add("com.dedalow.regressionCADActions.Test_PSFUEND02E0108");
+                	testCases.add("com.dedalow.regressionCADActions.Test_PSFUEND02E0108");
 				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0109");
 				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0111");
 				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0110");
@@ -374,6 +371,9 @@ public class Utils {
 				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0106");
 				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0105");
 				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0107");
+				testCases.add("com.dedalow.release5.Test_PSFUEND02E0113");
+				testCases.add("com.dedalow.release5.Test_PSFUEND02E0112");
+				testCases.add("com.dedalow.release6.Test_PSFUEND02E0114");
 			
                 break;
             default:

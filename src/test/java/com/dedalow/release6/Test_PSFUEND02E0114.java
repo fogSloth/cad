@@ -56,7 +56,7 @@ public class Test_PSFUEND02E0114 {
     public static HashMap<String, String> excelSheet;
 
     
-    private static Release6BeforeEach release6BeforeEach;
+    private static Release6BeforeEach1 release6BeforeEach1;
 	private static Release6Page release6Page;
 	private static GlobalRelease6Action globalRelease6Action;
 	private static LocalRelease6Action localRelease6Action;
@@ -80,7 +80,7 @@ public class Test_PSFUEND02E0114 {
             constant.test = constant.initialize.getTest();
             driver = setUpEnvironment(folderDownloads, prop, "MAIN_CONTEXT", constant.contextsDriver);
                 
-        	release6BeforeEach.doBeforeEach();
+        	release6BeforeEach1.doBeforeEach1();
         } catch (AssertionError | Exception e) {
             Report.reportErrors(e.getMessage());
 			finalResult = "BQ";
@@ -258,7 +258,7 @@ public class Test_PSFUEND02E0114 {
         driver = driverInit.driverSelector(folderDownloads, prop, nameDriver, contextsDriver);
             handler = driver.getWindowHandle();
         reflectiveClass = Utils.getReflective(Test_PSFUEND02E0114.class.getCanonicalName());
-			release6BeforeEach = new Release6BeforeEach(reflectiveClass);
+			release6BeforeEach1 = new Release6BeforeEach1(reflectiveClass);
 		release6Page = new Release6Page(reflectiveClass);
 		globalRelease6Action = new GlobalRelease6Action(reflectiveClass);
 		localRelease6Action = new LocalRelease6Action(reflectiveClass);

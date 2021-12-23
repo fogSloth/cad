@@ -74,8 +74,8 @@ public class UploadFileAction{
 	public UploadFileAction uploadFile() throws Exception {
         
             
-            driver.findElement(uploadFile).sendKeys("/tmp/Swagger.json");
-            Report.reportLog(reflectiveClass, "uploadFile: /tmp/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
+            driver.findElement(uploadFile).sendKeys("C:/Users/jperepei/generated/Swagger.json");
+            Report.reportLog(reflectiveClass, "uploadFile: C:/Users/jperepei/generated/Swagger.json uploaded", "INFO", 0, Status.PASS, true, "", "", null);
             return this;
       }
       

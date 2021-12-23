@@ -43,8 +43,8 @@ public class LocalRelease6Action{
     private HashMap<String, String> excelSheet;
     
       
-	private static By CheckLastNameAction = By.xpath("//label[contains(text(),'LastName')]");
-	private static By SaveEmailAction = By.xpath("//label[contains(text(),'Email')]");
+	private static By LocalVariableVariable1 = By.xpath("//label[contains(text(),'LastName')]");
+	private static By LocalVariableVariable = By.xpath("//label[contains(text(),'Email')]");
 	private By ClickFirstNameAction = By.name("name");
 	private By WriteFirstNameAction = By.name("name");
 	private By ClickEmailAction = By.name("email");
@@ -121,11 +121,11 @@ public class LocalRelease6Action{
       
 	public LocalRelease6Action StoreEmailAction(HashMap<String, String> testActionVariable) {
         
-			assertTrue(testActionVariable.get("LocalVariable").equals(driver.findElement(CheckLastNameAction).getText()), "Field CheckLastNameAction not found in assertion");
+			assertTrue(testActionVariable.get("LocalVariable").equals(driver.findElement(LocalVariableVariable1).getText()), "Field LocalVariableVariable1 not found in assertion");
         	Report.reportLog(reflectiveClass, "The field "+testActionVariable.get("LocalVariable")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
             
-        testActionVariable.put("LocalVariable", driver.findElement(SaveEmailAction).getText());
-        Report.reportLog(reflectiveClass, "New value for the variable LocalVariable = " + driver.findElement(SaveEmailAction).getText(), "INFO", 0, Status.PASS, false, "", "", null);
+        testActionVariable.put("LocalVariable", driver.findElement(LocalVariableVariable).getText());
+        Report.reportLog(reflectiveClass, "New value for the variable LocalVariable = " + driver.findElement(LocalVariableVariable).getText(), "INFO", 0, Status.PASS, false, "", "", null);
 
         Report.reportLog(reflectiveClass, "The field StoreEmailAction has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
         return this;

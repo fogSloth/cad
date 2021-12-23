@@ -257,20 +257,20 @@ public class Test_PSFUEND02E0113 {
             
             constant.isBackend = true;
             
-            assertTrue(constant.apiResponse.getHeader("Content-Type").contains("utf-8"),
-            "Error assertion BackendAssertion7 check the Header return Content-Type: "
-            + constant.apiResponse.getHeader("Content-Type") + ", expected contains utf-8");
-            Report.reportLog(reflectiveClass, "Correct assertion BackendAssertion7 check the Header return Content-Type: "
-            + constant.apiResponse.getHeader("Content-Type") + ", expected contains utf-8", "INFO", 0, Status.PASS, false, "Correct assertion BackendAssertion7 check the Header <br><strong>return</strong> Content-Type: "  + constant.apiResponse.getHeader("Content-Type")
-            + ",</br> <strong> expected </strong> contains utf-8", "backendAssertion", null);
-            
-            
             assertTrue(constant.apiResponse.jsonPath().getString("job").contains("leader"),
-            "Error assertion BackendAssertion8 check the Body return job: "
+            "Error assertion BackendAssertion7 check the Body return job: "
             + constant.apiResponse.jsonPath().getString("job") + ", expected contains leader");
-            Report.reportLog(reflectiveClass, "Correct assertion BackendAssertion8 check the Body return job: "
-            + constant.apiResponse.jsonPath().getString("job") + ", expected contains leader", "INFO", 0, Status.PASS, false, "Correct assertion BackendAssertion8 check the Body <br><strong>return</strong> job: "  + constant.apiResponse.jsonPath().getString("job")
+            Report.reportLog(reflectiveClass, "Correct assertion BackendAssertion7 check the Body return job: "
+            + constant.apiResponse.jsonPath().getString("job") + ", expected contains leader", "INFO", 0, Status.PASS, false, "Correct assertion BackendAssertion7 check the Body <br><strong>return</strong> job: "  + constant.apiResponse.jsonPath().getString("job")
             + ",</br> <strong> expected </strong> contains leader", "backendAssertion", null);
+            
+            
+            assertTrue(constant.apiResponse.getHeader("Content-Type").contains("utf-8"),
+            "Error assertion BackendAssertion8 check the Header return Content-Type: "
+            + constant.apiResponse.getHeader("Content-Type") + ", expected contains utf-8");
+            Report.reportLog(reflectiveClass, "Correct assertion BackendAssertion8 check the Header return Content-Type: "
+            + constant.apiResponse.getHeader("Content-Type") + ", expected contains utf-8", "INFO", 0, Status.PASS, false, "Correct assertion BackendAssertion8 check the Header <br><strong>return</strong> Content-Type: "  + constant.apiResponse.getHeader("Content-Type")
+            + ",</br> <strong> expected </strong> contains utf-8", "backendAssertion", null);
             
             
 			
