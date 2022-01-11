@@ -59,10 +59,7 @@ public class Constant {
 	}
 
 	
-	// Data Excel
-	public ArrayList<HashMap<String, String>> excelSheets;
-	public HashMap<String, ArrayList<HashMap<String, String>>> sheets;
-	public Integer iterationExcel;
+	
 
 	public void defaultValues() throws Exception {
 		isAfter = false;
@@ -73,7 +70,7 @@ public class Constant {
 		afterResult = "succesfully";
 		captureLog ="OK";
 		screenshot = utils.configScreenshot();
-		iterationExcel = 0;
+		
 	}
 
 }

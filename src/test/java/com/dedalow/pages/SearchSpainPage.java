@@ -24,17 +24,18 @@ import com.dedalow.utils.Utils;
 import com.dedalow.utils.Constant;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class HtmlPage {
+public class SearchSpainPage {
 
     private WebDriver driver;
     private Class reflectiveClass;
     private JavascriptExecutor js;
     private static Logger logger = Utils.logger();
     
-	private By openNewTab = By.xpath("//a[contains(text(),'The home page')]");
+	private By searchSpain = By.id("searchButton");
+	private By EspaaVariable = By.id("searchInput");
     
     
-    public HtmlPage(Class reflectiveClass) throws Exception {
+    public SearchSpainPage(Class reflectiveClass) throws Exception {
         this.reflectiveClass = reflectiveClass;
         this.driver = (WebDriver) reflectiveClass.getField("driver").get(reflectiveClass);
         PageFactory.initElements(driver, this);
@@ -42,12 +43,15 @@ public class HtmlPage {
         
     }
         
-	public HtmlPage openNewTab() throws Exception {
-        
-            new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(openNewTab));
-            Report.reportLog(reflectiveClass, "Condition openNewTab isClickable finished", "ASYNCHRONOUS", 0);
-            driver.findElement(openNewTab).click();
-            Report.reportLog(reflectiveClass, "Clicked openNewTab", "INFO", 1000, Status.PASS, true, "", "", null);
+	public SearchSpainPage searchSpain(HashMap<String, String> variables) throws Exception {
+        	driver.findElement(EspaaVariable).clear();
+                driver.findElement(EspaaVariable).sendKeys(variables.get("España"));
+                Report.reportLog(reflectiveClass, "Typed " + variables.get("España") + " in EspaaVariable", "INFO", 0, Status.PASS, true, "", "", null);
+		
+            new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(searchSpain));
+            Report.reportLog(reflectiveClass, "Condition searchSpain isClickable finished", "ASYNCHRONOUS", 0);
+            driver.findElement(searchSpain).click();
+            Report.reportLog(reflectiveClass, "Clicked searchSpain", "INFO", 0, Status.PASS, true, "", "", null);
             return this;
 	}
 }

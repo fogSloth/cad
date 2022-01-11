@@ -7,7 +7,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
     <groupId>java.com.dedalow</groupId>
-    <artifactId>supertstact</artifactId>
+    <artifactId>3146qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 	
 	<developers>
@@ -28,12 +28,13 @@
 		<junit5.version>5.4.0</junit5.version>
 		<rest-assured.version>3.0.7</rest-assured.version>
 		<extentreports.version>3.1.2</extentreports.version>
-		<testlink.version>1.9.19-0</testlink.version>
+		<oracle.ojdbc8.version>19.3.0.0</oracle.ojdbc8.version>
+		
 	</properties>
 	
 	<!-- Build and plugins -->
 	<build>
-		<finalName>supertstactExe</finalName>
+		<finalName>3146qaExe</finalName>
 		<sourceDirectory>src/test/java</sourceDirectory>
 		<plugins>
 			<!-- Compile the project -->
@@ -297,14 +298,16 @@
 		    <artifactId>log4j</artifactId>
 		    <version>1.2.17</version>
 		</dependency>
+
+		<!-- Oracle Ojdbc8 -->
+		<!-- https://repo.maven.apache.org/maven2/com/oracle/ojdbc/ojdbc8/19.3.0.0/ -->
+		<dependency>
+			<groupId>com.oracle.ojdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>${oracle.ojdbc8.version}</version>
+		</dependency>
 		
-		<!-- TESTLINK REPORT -->
-			<!-- https://mvnrepository.com/artifact/br.eti.kinoshita/testlink-java-api -->
-			<dependency>
-				<groupId>br.eti.kinoshita</groupId>
-				<artifactId>testlink-java-api</artifactId>
-				<version>${testlink.version}</version>
-			</dependency>
+		
 		
 		<!-- EXTENT REPORTS -->
 		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->

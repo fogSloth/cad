@@ -17,14 +17,14 @@ public class Launcher {
 	public static Constant constant = new Constant();
 
 	public static void main(String[] args) {
-		
+
 		try {
 			ArrayList<String> testCases = Utils.getTestCasesSelected();
 
 			LauncherDiscoveryRequest discoveryRequest = LauncherDiscoveryRequestBuilder.request()
 					.selectors(testCases.stream().map(DiscoverySelectors::selectClass).collect(Collectors.toList()))
 					.build();
-			
+
 			org.junit.platform.launcher.Launcher launcher = LauncherFactory.create();
 			launcher.execute(discoveryRequest);
 

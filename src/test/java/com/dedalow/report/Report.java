@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -59,14 +58,13 @@ public class Report {
 	private static Properties prop;
 	private static Logger logger = constant.logger;
 	private static JsonReport jsonReport = new JsonReport();
-	private static HashMap<String, ArrayList> notes = new HashMap<>();
-	private static HashMap<String, ArrayList> screenShootsPaths = new HashMap<>();
+	
 
 	public static void addResults(String suiteName, String caseName, ArrayList<String> results) {
 		TestSuite testSuite = jsonReport.testSuites.get(suiteName);
 		testSuite =  new TestSuite(suiteName);
 		
-		TestCase testCase = new TestCase(caseName, results , notes.get(caseName), screenShootsPaths.get(caseName));
+		TestCase testCase = new TestCase(caseName, results );
 		TestCase testCaseExcel = new TestCase(caseName, results);
 		testSuite.testCases.put(caseName, testCase);
 		prop = new Properties();
@@ -83,12 +81,6 @@ public class Report {
 		jsonReport.aLtestSuites.add(testSuite);
 		jsonReport.alTestCases.add(testCaseExcel);
 		
-		jsonReport.url = prop.getProperty("Testlink.TESTLINK");
-		jsonReport.devKey = prop.getProperty("Testlink.APIKEY");
-		jsonReport.projectName = prop.getProperty("Testlink.PROJECT_NAME_TESTLINK");
-		jsonReport.buildName = prop.getProperty("Testlink.BUILD_NAME");
-		jsonReport.platform = prop.getProperty("Testlink.PLATFORM_NAME");
-	
 	}
 
 	public static void reportExcel(Class reflectiveClass) {
@@ -193,14 +185,7 @@ public class Report {
 			if (wait > 0) {
 				fw.write(df.format(new Date()) + " - " + log + " - " + "Thread sleep " + wait + "ms" + "\r\n");
 			}
-			ArrayList<String>addNotes = notes.get(script);
-		if (addNotes == null) {
-			addNotes = new ArrayList<>();
-			notes.put(script, addNotes);
-		}
-
-		addNotes.add(df.format(new Date()) + " - " + level + " - " + msg + "\r\n");
-	
+			
 			fw.close();
 
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException | IOException e) {
@@ -277,14 +262,7 @@ public class Report {
 			File folderScreen = new File(route + fileSystem.getSeparator() + "screenshots");
 			folderScreen.mkdir();
 			String path = folderScreen + fileSystem.getSeparator() + name + "_" + timeStamp + ".png";
-			ArrayList<String>addScreenShoot = screenShootsPaths.get(script);
-		if (addScreenShoot == null) {
-			addScreenShoot = new ArrayList<>();
-			screenShootsPaths.put(script, addScreenShoot);
-		}
-		
-		addScreenShoot.add(path);
-	
+			
 
 			File destination = new File(path);
 
@@ -305,18 +283,6 @@ public class Report {
 		}
 	}
 
-	
-	public static void reportTestlink(Boolean screenShot, String suiteName,
-		String caseName) throws MalformedURLException, Exception {
-		if (jsonReport.url.contains("url")) {
-			logger.warning("testlink report not configured");	
-		} else if (StringUtils.isBlank(jsonReport.url)) {
-			throw new MalformedURLException();
-		} else {
-			ReportTestlink reportTestlink = new ReportTestlink();
-			reportTestlink.reportResultTestLink(jsonReport, screenShot, suiteName, caseName);
-		}
-	}
 	
 
 	private static void failedStepReport(String msg, String log, int wait,
@@ -342,14 +308,7 @@ public class Report {
 		if (wait > 0) {
 			fw.write(df.format(new Date()) + " - " + log + " - " + "Thread sleep " + wait + "ms" + "\r\n");
 		}
-		ArrayList<String>addNotes = notes.get(script);
-		if (addNotes == null) {
-			addNotes = new ArrayList<>();
-			notes.put(script, addNotes);
-		}
-
-		addNotes.add(df.format(new Date()) + " - " + level + " - " + msg + "\r\n");
-	
+		
 		fw.close();
 
 		if (level.equals("INFO")) { 

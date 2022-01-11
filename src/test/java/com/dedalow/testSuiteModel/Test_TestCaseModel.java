@@ -1,4 +1,4 @@
-package com.dedalow.regressionOtherActions;
+package com.dedalow.testSuiteModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,16 +32,16 @@ import com.dedalow.Launcher;
 import com.aventstack.extentreports.Status;
 
 
-import com.dedalow.actions.UploadFileAction;
+import com.dedalow.pages.SearchSpainPage;
 
-public class Test_PSFUEND02E0111 {
+public class Test_TestCaseModel {
    
     private static Class reflectiveClass;
     private static Launcher launcher = new Launcher();
     public static DriverInit driverInit = new DriverInit();
     public static Constant constant = launcher.constant;
-    public static String suiteName = "RegressionOtherActions";
-    public static String caseName = Test_PSFUEND02E0111.class.getSimpleName();
+    public static String suiteName = "TestSuiteModel";
+    public static String caseName = Test_TestCaseModel.class.getSimpleName();
     public static String modelDocumentation = "";
     public static WebDriver driver;
 
@@ -54,8 +54,9 @@ public class Test_PSFUEND02E0111 {
     public static HashMap<String, String> excelSheet;
 
     
-	private static UploadFileAction uploadFileAction;
+	private static SearchSpainPage searchSpainPage;
     
+	private static By EspaaVariable1 = By.id("firstHeading");
     
     @BeforeEach
     public void beforeEach() throws Exception {
@@ -73,36 +74,30 @@ public class Test_PSFUEND02E0111 {
 		}
     }
 
-    public void before() throws Exception {
-        try {
-            
-            
-            Report.reportLog(reflectiveClass, "Before of execution", "INFO", 0, Status.PASS, false, "", "", null);
-            
-			
-			uploadFileAction.doUploadFileAction();
-            Report.reportLog(reflectiveClass, "Action UploadFileAction finished","INFO", 0, Status.PASS, false, "", "", null);
-            
-            
-        } catch (AssertionError | Exception e) {
-            finalResult = "BQ";
-            throw new Exception(e);
-        }
-    }
+    
 
     @Test
-	@DisplayName("Test_PSFUEND02E0111")
+	@DisplayName("Test_TestCaseModel")
 	public void test() throws Exception {
         try {
-            before();
             
             
+            		HashMap<String, String> executeVariable = new HashMap<String, String>();
+			executeVariable.put("España", "España");
+			
+			
             Report.reportLog(reflectiveClass, "Start of execution", "INFO", 0, Status.PASS, false, "", "", null);
             
-			
-			uploadFileAction.doUploadFileAction();
-            Report.reportLog(reflectiveClass, "Action UploadFileAction finished","INFO", 0, Status.PASS, false, "", "", null);
+			driver.get("https://es.wikipedia.org/wiki/Wikipedia:Portada");
+            Report.reportLog(reflectiveClass, "Navigated to " + "https://es.wikipedia.org/wiki/Wikipedia:Portada", "INFO", 0, Status.PASS, true, "", "", null);
+			searchSpainPage.searchSpain(executeVariable);
             
+			
+			assertTrue(executeVariable.get("España").equals(driver.findElement(EspaaVariable1).getText()), "Field EspaaVariable1 not found in assertion");
+        	Report.reportLog(reflectiveClass, "The field "+executeVariable.get("España")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+            
+            
+            Report.reportLog(reflectiveClass, "The field FrontEndVerdictStepsAction has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
             
         } catch (AssertionError | Exception e) {
             Report.reportErrors(e.getMessage());
@@ -114,39 +109,19 @@ public class Test_PSFUEND02E0111 {
         }
     }
 
-    public void after() {
-        constant.isAfter = true;
-        constant.isBackend = false;
-        try {
-            
-            
-            Report.reportLog(reflectiveClass, "After of execution", "INFO", 0, Status.PASS, false, "", "", null);
-            
-			
-			uploadFileAction.doUploadFileAction();
-            Report.reportLog(reflectiveClass, "Action UploadFileAction finished","INFO", 0, Status.PASS, false, "", "", null);
-            
-            
-        } catch (AssertionError | Exception e) {
-            Report.reportErrors(e.getMessage());
-			constant.captureLog = "KO";
-			constant.afterResult = "not succesfully";
-            Report.reportLog(reflectiveClass, e.getMessage(), level, 0, Status.WARNING, true, "isCatch", "", Throwables.getStackTraceAsString(e));
-        }
-    }
+    
 
     @AfterEach
     public void afterEach()  {
         boolean screenShot = true;
-        after();
+        
         
         if (finalResult == "OK") {
-            Report.reportLog(reflectiveClass, "Result on Test_PSFUEND02E0111: " + finalResult, "INFO", 0, Status.PASS, false, "", "", null);
+            Report.reportLog(reflectiveClass, "Result on Test_TestCaseModel: " + finalResult, "INFO", 0, Status.PASS, false, "", "", null);
         } else {
-            Report.reportLog(reflectiveClass, "Result on Test_PSFUEND02E0111: " + finalResult, "INFO", 0, Status.FAIL, false, "", "", null);
+            Report.reportLog(reflectiveClass, "Result on Test_TestCaseModel: " + finalResult, "INFO", 0, Status.FAIL, false, "", "", null);
         }
-        constant.logger.info("Result on Test_PSFUEND02E0111: " + finalResult);
-		constant.logger.info("After execution finished: " + constant.afterResult);
+        constant.logger.info("Result on Test_TestCaseModel: " + finalResult);
         Utils.tearDown(reflectiveClass);
 		Utils.finalReports(reflectiveClass, screenShot);
 		constant.initialize.flush();
@@ -164,6 +139,7 @@ public class Test_PSFUEND02E0111 {
             folderDownloads.mkdirs();
             prop = Utils.getConfigProperties();
             level = prop.getProperty("LOG_LEVEL");
+            Utils.setEncoding();
         } catch (Exception e) {
             e.printStackTrace();
             Report.reportErrors(e.getMessage());
@@ -175,8 +151,8 @@ public class Test_PSFUEND02E0111 {
         String nameDriver, Map<String, WebDriver> contextsDriver) throws Exception {
         driver = driverInit.driverSelector(folderDownloads, prop, nameDriver, contextsDriver);
             handler = driver.getWindowHandle();
-        reflectiveClass = Utils.getReflective(Test_PSFUEND02E0111.class.getCanonicalName());
-		uploadFileAction = new UploadFileAction(reflectiveClass);
+        reflectiveClass = Utils.getReflective(Test_TestCaseModel.class.getCanonicalName());
+		searchSpainPage = new SearchSpainPage(reflectiveClass);
         return driver;
     }
 }
