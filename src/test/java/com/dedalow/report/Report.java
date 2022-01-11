@@ -11,18 +11,16 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
@@ -39,91 +37,67 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import com.google.common.base.Throwables;
 import com.google.common.io.Files;
-import com.dedalow.utils.Utils;
-import com.dedalow.utils.Constant;
-import com.dedalow.report.Excel;
-import com.dedalow.Launcher;
-
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-
+import com.dedalow.SharedDependencies;
+import com.dedalow.utils.Utils;
+import com.dedalow.RunnerTest;
 public class Report {
 
 	private static FileSystem fileSystem = FileSystems.getDefault();
 	private static String root = System.getProperty("user.dir") + fileSystem.getSeparator() + "logs";
 	private static File rootFile = new File(root);
-	private static Launcher launcher = new Launcher();
-	private static Constant constant = launcher.constant;
 	private static Properties prop;
-	private static Logger logger = constant.logger;
+	private static Logger logger = Utils.logger();
 	private static JsonReport jsonReport = new JsonReport();
-	private static HashMap<String, ArrayList> notes = new HashMap<>();
-	private static HashMap<String, ArrayList> screenShootsPaths = new HashMap<>();
+	private static SharedDependencies dependencies;
+	private static RunnerTest runner = new RunnerTest();
+	
 
-	public static void addResults(String suiteName, String caseName, ArrayList<String> results) {
-		TestSuite testSuite = jsonReport.testSuites.get(suiteName);
-		testSuite =  new TestSuite(suiteName);
+	public static void addResults(String featureName, String scenarioName, ArrayList<String> results) {
+		TestSuite testSuite = jsonReport.testSuites.get(featureName);
+		testSuite =  new TestSuite(featureName);
 		
-		TestCase testCase = new TestCase(caseName, results , notes.get(caseName), screenShootsPaths.get(caseName));
-		TestCase testCaseExcel = new TestCase(caseName, results);
-		testSuite.testCases.put(caseName, testCase);
+		TestCase testCase = new TestCase(scenarioName, results );
+		TestCase testCaseExcel = new TestCase(scenarioName, results);
+		testSuite.testCases.put(scenarioName, testCase);
 		prop = new Properties();
 		try {
 			prop.load(new FileInputStream("config.properties"));
 			
 		} catch (FileNotFoundException e) {
-			logger.severe(e.getMessage());
+			Report.reportErrors(e.getMessage());
 		} catch (IOException e) {
-			logger.severe(e.getMessage());
+			Report.reportErrors(e.getMessage());
 		}
 
-		jsonReport.testSuites.put(suiteName, testSuite);
+		jsonReport.testSuites.put(featureName, testSuite);
 		jsonReport.aLtestSuites.add(testSuite);
 		jsonReport.alTestCases.add(testCaseExcel);
 		
-		jsonReport.url = prop.getProperty("Testlink.TESTLINK");
-		jsonReport.devKey = prop.getProperty("Testlink.APIKEY");
-		jsonReport.projectName = prop.getProperty("Testlink.PROJECT_NAME_TESTLINK");
-		jsonReport.buildName = prop.getProperty("Testlink.BUILD_NAME");
-		jsonReport.platform = prop.getProperty("Testlink.PLATFORM_NAME");
-	
 	}
 
-	public static void reportExcel(Class reflectiveClass) {
-		File route = null;
-		String suiteName = null;
-		String caseName = null;
-		ArrayList<String> results = null;
+	public static void reportExcel(File route, ArrayList<String> results, String featureName, String scenarioName) {
 		HSSFWorkbook wk = null;
 		String result;
 
-		try {
-			route = constant.folderTestSuite;
-			suiteName = (String) reflectiveClass.getField("suiteName").get(reflectiveClass);
-			caseName = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
-			results = constant.results;
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-			logger.severe(e.getMessage());
-		}
-
 		String[] columnsExcel = new String[results.size()+2];
-		columnsExcel[0] = "Test Case Name";
+		columnsExcel[0] = "Scenario Name";
 		columnsExcel[1] = "Result";
 
-		wk = Excel.createExcel(route, suiteName, columnsExcel);
-		HSSFSheet sheet = wk.getSheet(suiteName);
+		wk = createExcel(route, featureName, columnsExcel);
+		HSSFSheet sheet = wk.getSheet(featureName);
 
 		Row row = sheet.createRow(sheet.getLastRowNum() + 1);
 		Cell tc_cell = row.createCell(0);
-		tc_cell.setCellValue(caseName);
+		tc_cell.setCellValue(scenarioName);
 
 		if (results.size() > 1) {
-			if (results.contains("KO")) {
-				result = "KO";
-			} else if (results.contains("BQ")) {
+			if (results.contains("BQ")) {
 				result = "BQ";
+			}else if (results.contains("KO")) {
+				result = "KO";
 			} else {
 				result = "OK";
 			}
@@ -131,7 +105,7 @@ public class Report {
 				columnsExcel[i+2] = "Iteration: " + (i+1);
 				Cell cell = row.createCell(i+2);
 				cell.setCellValue(results.get(i));
-				cell.setCellStyle(Excel.changeColor(results.get(i), wk));
+				cell.setCellStyle(changeColor(results.get(i), wk));
 				sheet.autoSizeColumn(i);
 			}
 		} else {
@@ -140,11 +114,11 @@ public class Report {
 
 		Cell cell = row.createCell(1);
 		cell.setCellValue(result);
-		cell.setCellStyle(Excel.changeColor(result, wk));
+		cell.setCellStyle(changeColor(result, wk));
 		sheet.autoSizeColumn(1);
 
 		if (sheet.getRow(0).getPhysicalNumberOfCells() <= columnsExcel.length) {
-			Excel.createHeaderExcel(wk, sheet, columnsExcel);
+			createHeaderExcel(wk, sheet, columnsExcel);
 		}
 
 		try {
@@ -154,20 +128,70 @@ public class Report {
 			fileOut.close();
 			wk.close();
 		} catch (Exception e) {
-			logger.severe(e.getMessage());
+			Report.reportErrors(e.getMessage());
 		}
 	}
 
-	public static void reportLog(Class reflectiveClass, String msg, String log, int wait) {
+	public static HSSFWorkbook createExcel(File route, String suiteName, String[] columnsExcel) {
+		HSSFWorkbook wk = null;
 		try {
-			File route = (File) reflectiveClass.getField("folderTestCase").get(reflectiveClass);
-			String script = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
-			String level = (String) reflectiveClass.getField("level").get(reflectiveClass);
-			String finalResult = (String) reflectiveClass.getField("finalResult").get(reflectiveClass);
+			File file = new File(route + fileSystem.getSeparator() + "ReportResult.xls");
+			if (file.exists()) {
+				FileInputStream fis = new FileInputStream(file);
+				 wk = (HSSFWorkbook) WorkbookFactory.create(fis);
+				if (fis != null) {
+					fis.close();
+				}
+			} else {
+				wk = new HSSFWorkbook();
+				HSSFSheet sheet = wk.createSheet(suiteName);
+				createHeaderExcel(wk, sheet, columnsExcel);
+			}
+		} catch (Exception e) {
+			Report.reportErrors(e.getMessage());
+		}
+		return wk;
+	}
 
+	public static void createHeaderExcel(HSSFWorkbook wk, HSSFSheet sheet, String[] columnsExcel) {
+		Font fontHeader = wk.createFont();
+		fontHeader.setBold(true);
+		fontHeader.setFontHeightInPoints((short) 11);
+		CellStyle styleHeader = wk.createCellStyle();
+		styleHeader.setFont(fontHeader);
+		Row header = sheet.createRow(0);
+		for (int i = 0; i < columnsExcel.length; i++) {
+			Cell cellHeader = header.createCell(i);
+			cellHeader.setCellValue(columnsExcel[i]);
+			cellHeader.setCellStyle(styleHeader);
+			sheet.autoSizeColumn(i);
+		}
+	}
+
+	public static CellStyle changeColor(String result, HSSFWorkbook wk) {
+		CellStyle styleResult = wk.createCellStyle();
+		styleResult.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		switch (result) {
+		case "OK":
+			styleResult.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+			return styleResult;
+		case "KO":
+			styleResult.setFillForegroundColor(IndexedColors.CORAL.getIndex());
+			return styleResult;
+		default:
+			styleResult.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+			return styleResult;
+		}
+	}
+	
+	public static void reportLog(SharedDependencies dependencies, String msg, String log, int wait) {
+		try {
+			File route = dependencies.folderTestCase;
+			String level = dependencies.level;
+			String ScenarioName = dependencies.scenarioName;
 			rootFile.mkdirs();
 			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			String logPath = route + fileSystem.getSeparator() + "Log_" + script + ".log";
+			String logPath = route + fileSystem.getSeparator() + "Log_" + ScenarioName + ".log";
 			File logFile = new File(logPath);
 			FileWriter fw = new FileWriter(logFile, true);
 			if (msg != "") {
@@ -193,141 +217,114 @@ public class Report {
 			if (wait > 0) {
 				fw.write(df.format(new Date()) + " - " + log + " - " + "Thread sleep " + wait + "ms" + "\r\n");
 			}
-			ArrayList<String>addNotes = notes.get(script);
-		if (addNotes == null) {
-			addNotes = new ArrayList<>();
-			notes.put(script, addNotes);
-		}
-
-		addNotes.add(df.format(new Date()) + " - " + level + " - " + msg + "\r\n");
-	
+			
 			fw.close();
-
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException | IOException e) {
-			logger.severe(e.getMessage());
+		} catch (IllegalArgumentException | SecurityException | IOException e) {
+			Report.reportErrors(e.getMessage());
 		}
+
 	}
 
-	public static void reportLog (Class reflectiveClass, String msg, String log, int wait, Status status,
+	public static void reportLog (SharedDependencies dependencies, String msg, String log, int wait, Status status,
 		Boolean screenShot, String request, String response, String debugMsg) {
 		try {
-			File route = (File) reflectiveClass.getField("folderTestCase").get(reflectiveClass);
-			String script = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
+						
+			File route = dependencies.folderTestCase;
+			String ScenarioName = dependencies.scenarioName;
+			ExtentTest parentTest = dependencies.parentTest;
+			String level = dependencies.level;
 
 			rootFile.mkdirs();
 			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			String logPath = route + fileSystem.getSeparator() + "Log_" + script + ".log";
+			String logPath = route + fileSystem.getSeparator() + "Log_" + ScenarioName + ".log";
 			File logFile = new File(logPath);
 			FileWriter fw = new FileWriter(logFile, true);
 			if (!request.equals("") && !response.equals("") && !response.equals("backendAssertion")) {
-				constant.test.log(status, request);
-				constant.test.log(status, response);
-				reportLog(reflectiveClass, msg, log, wait);
+				parentTest.log(status, request);
+				parentTest.log(status, response);
+				reportLog(dependencies, msg, log, wait);
 			} else if (!request.equals("") && response.equals("backendAssertion")) {
-				constant.test.log(status, request);
-				reportLog(reflectiveClass, msg, log, wait);
+				parentTest.log(status, request);
+				reportLog(dependencies, msg, log, wait);
 			} else if (request.equals("isCatch")) {
-				failedStepReport(msg, log, wait, reflectiveClass, status, debugMsg);
+				failedStepReport(msg, level, wait, dependencies, status, debugMsg);
 			} else {
-				constant.test.log(status, msg);
+				parentTest.log(status, msg);
 				if (screenShot == true) {
-					capScreenFrequency(reflectiveClass);
+					capScreenFrequency(dependencies);
 				}
-				reportLog(reflectiveClass, msg, log, wait);
+				reportLog(dependencies, msg, log, wait);
 			}
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
-			constant.test.log(status, msg);
 		}
 	}
 
-	public static void capScreenFrequency(Class reflectiveClass) throws Exception {
-		switch(constant.screenshot) {
-			case "always":
-				capScreen(reflectiveClass);
-				break;
-			case "only":
-				List<String> listResults = Arrays.asList("BQ", "KO");
-				String result = constant.isAfter ? constant.captureLog : (String) reflectiveClass.getField("finalResult").get(reflectiveClass);
-				if (listResults.contains(result)) {
-					capScreen(reflectiveClass);
-				}
-				break;
-			default:
-				break;
-		}
-	}
-
-	public static void capScreen(Class reflectiveClass) {
-		try {
-			String result = (String) reflectiveClass.getField("finalResult").get(reflectiveClass);
-			File route = (File) reflectiveClass.getField("folderTestCase").get(reflectiveClass);
-			String script = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
-			WebDriver driver = (WebDriver) reflectiveClass.getField("driver").get(reflectiveClass);
-			String timeStamp = new SimpleDateFormat("HH.mm.ss.SSS").format(Calendar.getInstance().getTime());
-			String name = "";
-
-			if(constant.isAfter == true) {
-				name = constant.captureLog + "_" + script;
-			} else {
-				name = result + "_" + script;
+	/**
+	 * We check the screenshot field of the config.properties that the user has defined and based on his choice, the screenshots are made or not.
+	 * @param dependencies
+	 */
+	public static void capScreenFrequency(SharedDependencies dependencies) {
+		switch(dependencies.screenshot) {
+		case "always":
+			capScreen(dependencies);
+			break;
+		case "only":
+			List<String> listResult = Arrays.asList("BQ", "KO");
+			String result = dependencies.isAfter ? dependencies.captureLog : dependencies.finalResult;
+			if (listResult.contains(result)) {
+				capScreen(dependencies);
 			}
-			TakesScreenshot ts = (TakesScreenshot) driver;
-			File sourcePath = ts.getScreenshotAs(OutputType.FILE);
-			File folderScreen = new File(route + fileSystem.getSeparator() + "screenshots");
-			folderScreen.mkdir();
-			String path = folderScreen + fileSystem.getSeparator() + name + "_" + timeStamp + ".png";
-			ArrayList<String>addScreenShoot = screenShootsPaths.get(script);
-		if (addScreenShoot == null) {
-			addScreenShoot = new ArrayList<>();
-			screenShootsPaths.put(script, addScreenShoot);
-		}
-		
-		addScreenShoot.add(path);
-	
-
-			File destination = new File(path);
-
-			if (name.contains("BQ") || name.contains("KO")) {
-				try {
-					String relativePath = path.split(constant.dat)[1].substring(1);
-					constant.test.addScreenCaptureFromPath(relativePath);
-				} catch (IOException e) {
-					constant.logger.log(Level.SEVERE, e.getMessage(), e);
-				}
-			}
-
-			Files.copy(sourcePath, destination);
-
-		} catch (Exception e) {
-			constant.logger.log(Level.SEVERE, e.getMessage(), e);
-			logger.severe(e.getMessage());
 		}
 	}
 
-	
-	public static void reportTestlink(Boolean screenShot, String suiteName,
-		String caseName) throws MalformedURLException, Exception {
-		if (jsonReport.url.contains("url")) {
-			logger.warning("testlink report not configured");	
-		} else if (StringUtils.isBlank(jsonReport.url)) {
-			throw new MalformedURLException();
+	public static void capScreen(SharedDependencies dependencies) {
+		String ScenarioName = dependencies.scenarioName;
+		String timeStamp = new SimpleDateFormat("HH.mm.ss.SSS").format(Calendar.getInstance().getTime());
+		String name = "";
+
+		if (dependencies.isAfter) {
+			name = dependencies.captureLog + "_" + dependencies.scenarioName;
 		} else {
-			ReportTestlink reportTestlink = new ReportTestlink();
-			reportTestlink.reportResultTestLink(jsonReport, screenShot, suiteName, caseName);
+			name = dependencies.finalResult + "_" + dependencies.scenarioName;
+		}
+		TakesScreenshot ts = (TakesScreenshot) dependencies.driver;
+		File sourcePath = ts.getScreenshotAs(OutputType.FILE);
+		File folderScreen = new File(dependencies.folderTestCase + fileSystem.getSeparator() + "screenshots");
+		folderScreen.mkdir();
+		String path = folderScreen + fileSystem.getSeparator() + name + "_" + timeStamp + ".png";
+		
+
+		File destination = new File(path);
+
+		if (name.contains("BQ") || name.contains("KO")) {
+			try {
+				String relativePath = path.split(runner.dat)[1].substring(1);
+				dependencies.parentTest.addScreenCaptureFromPath(relativePath);
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, e.getMessage(), e);
+			}
+		
+		}
+		try {
+			Files.copy(sourcePath, destination);
+		} catch (Exception e) {
+			logger.severe(e.getMessage());
 		}
 	}
+
 	
 
 	private static void failedStepReport(String msg, String log, int wait,
-		Class reflectiveClass, Status status, String debugMsg) throws Exception {
-		File route = (File) reflectiveClass.getField("folderTestCase").get(reflectiveClass);
-		String script = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
-		String level = (String) reflectiveClass.getField("level").get(reflectiveClass);
-		
+		SharedDependencies dependencies, Status status, String debugMsg) throws Exception {
+		File route = dependencies.folderTestCase;
+		String ScenarioName = dependencies.scenarioName;
+		String level = dependencies.level;
+		ExtentTest parentTest = dependencies.parentTest;
+			
 		rootFile.mkdirs();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		String logPath = route + fileSystem.getSeparator() + "Log_" + script + ".log";
+		String logPath = route + fileSystem.getSeparator() + "Log_" + ScenarioName + ".log";
 		File logFile = new File(logPath);
 		FileWriter fw = new FileWriter(logFile, true);
 		
@@ -342,25 +339,18 @@ public class Report {
 		if (wait > 0) {
 			fw.write(df.format(new Date()) + " - " + log + " - " + "Thread sleep " + wait + "ms" + "\r\n");
 		}
-		ArrayList<String>addNotes = notes.get(script);
-		if (addNotes == null) {
-			addNotes = new ArrayList<>();
-			notes.put(script, addNotes);
-		}
-
-		addNotes.add(df.format(new Date()) + " - " + level + " - " + msg + "\r\n");
-	
+		
 		fw.close();
 
 		if (level.equals("INFO")) { 
 			msg = StringEscapeUtils.escapeHtml4(msg);
-			constant.test.log(status, msg);
+			parentTest.log(status, msg);
 		} else {
 			debugMsg = StringEscapeUtils.escapeHtml4(debugMsg);
-			constant.test.log(status, debugMsg);
+			parentTest.log(status, debugMsg);
 		}
-		if (!constant.isBackend) {
-			capScreenFrequency(reflectiveClass);
+		if (!dependencies.isBackend) {
+			capScreenFrequency(dependencies);
 		}
 	}
 
@@ -369,15 +359,15 @@ public class Report {
 		errorsFolder.mkdir();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		String logPath = System.getProperty("user.dir") + fileSystem.getSeparator() + "Errors"
-		+ fileSystem.getSeparator() + "Errors " + constant.dat + ".log";
+		+ fileSystem.getSeparator() + "Errors " + runner.dat + ".log";
 		File logFile = new File(logPath);
 		try {
 			FileWriter fw = new FileWriter(logFile, true);
 			fw.write(df.format(new Date()) + " - " + "ERROR" + " - " + "\n" + msg + "\r\n");
 			fw.close();
-			constant.logger.severe("\n" + msg);
+			logger.severe("\n" + msg);
 		} catch (Exception e) {
-			constant.logger.severe("Error creating errors file");
+			logger.severe("Error creating errors file");
 		}
 	}
 }
