@@ -7,7 +7,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
     <groupId>java.com.dedalow</groupId>
-    <artifactId>cucumberact</artifactId>
+    <artifactId>supertstact</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 	
 	<developers>
@@ -29,12 +29,12 @@
 		<rest-assured.version>3.0.7</rest-assured.version>
 		<extentreports.version>3.1.2</extentreports.version>
 		<oracle.ojdbc8.version>19.3.0.0</oracle.ojdbc8.version>
-		
+		<testlink.version>1.9.19-0</testlink.version>
 	</properties>
 	
 	<!-- Build and plugins -->
 	<build>
-		<finalName>cucumberactExe</finalName>
+		<finalName>supertstactExe</finalName>
 		<sourceDirectory>src/test/java</sourceDirectory>
 		<plugins>
 			<!-- Compile the project -->
@@ -78,7 +78,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.dedalow.RunnerTest</mainClass>
+							<mainClass>com.dedalow.Launcher</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -126,23 +126,7 @@
 							</resources>
 						</configuration>
 					</execution>
-					<!-- Copy resources -->
-                    <execution>
-                        <id>copy-features</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/features</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>features</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
+					
 				</executions>
 			</plugin>
 			<!-- Copy resource file -->
@@ -241,56 +225,7 @@
 	</build>
 	
 	<dependencies>
-		<!-- CUCUMBER -->
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-core -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-core</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-html -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-html</artifactId>
-            <version>0.2.7</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-junit -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-picocontainer -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-picocontainer</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-jvm-deps -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-jvm-deps</artifactId>
-            <version>1.0.6</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/info.cukes/gherkin -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>gherkin</artifactId>
-            <version>2.12.2</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine -->
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<version>5.7.0</version>
-			<scope>test</scope>
-		</dependency>
+		
 		
 		<!-- SELENIUM -->
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -391,7 +326,13 @@
 			<version>${oracle.ojdbc8.version}</version>
 		</dependency>
 		
-		
+		<!-- TESTLINK REPORT -->
+			<!-- https://mvnrepository.com/artifact/br.eti.kinoshita/testlink-java-api -->
+			<dependency>
+				<groupId>br.eti.kinoshita</groupId>
+				<artifactId>testlink-java-api</artifactId>
+				<version>${testlink.version}</version>
+			</dependency>
 		
 		<!-- EXTENT REPORTS -->
 		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->

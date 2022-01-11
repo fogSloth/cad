@@ -2,6 +2,7 @@ package com.dedalow;
 
 import com.dedalow.utils.Utils;
 import com.dedalow.utils.DriverInit;
+import com.dedalow.utils.Constant;
 
 import java.io.File;
 import java.nio.file.FileSystem;
@@ -21,7 +22,8 @@ public class ContainerManager {
 	public static FileSystem fileSystem = FileSystems.getDefault();
     public static String resources =  System.getProperty("user.dir") + fileSystem.getSeparator() + "resources";
     public static DriverInit driverInit = new DriverInit();
-    public static RunnerTest runnerTest = new RunnerTest();
+    public static Launcher launcher = new Launcher();
+    public static Constant constant = launcher.constant;
  
     public static void startContainer(File folderDownloads, Properties prop, File folderTestCase) {
         File folderScreen = new File(folderTestCase + fileSystem.getSeparator() + "screenshots");
