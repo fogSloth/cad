@@ -108,7 +108,8 @@ public class Utils {
             }
         }   
 
-        
+        sheetList.put("CheckText:MultipleParameter", getTabs("CheckText:MultipleParameter", sheetList));
+            sheetList.put("Login", getTabs("Login", sheetList));
         fis.close();
         book.close();
     } catch (Exception e) { 
@@ -334,13 +335,57 @@ public class Utils {
 
     public static ArrayList<String> getTestCases(String option, ArrayList<String> testCases) throws Exception {
         switch (option) {
-            case "testSuiteModel":
-            	testCases.add("com.dedalow.testSuiteModel.Test_TestCaseModel");
+            case "regressionCADActions":
+            	testCases.add("com.dedalow.regressionCADActions.Test_PSFUEND02E0108");
+			
+            break;
+			case "regressionOtherActions":
+            	testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0109");
+				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0111");
+				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0110");
+			
+            break;
+			case "regressionOther":
+            	testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0106");
+				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0105");
+				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0107");
+			
+            break;
+			case "regressionCAD":
+            	testCases.add("com.dedalow.regressionCAD.Test_PSFUEND02E0104");
+			
+            break;
+			case "release5":
+            	testCases.add("com.dedalow.release5.Test_PSFUEND02E0113");
+				testCases.add("com.dedalow.release5.Test_PSFUEND02E0112");
+			
+            break;
+			case "release6":
+            	testCases.add("com.dedalow.release6.Test_PSFUEND02E0114");
+			
+            break;
+			case "regresionCustomAction":
+            	testCases.add("com.dedalow.regresionCustomAction.Test_PSFUEND02E0115");
+				testCases.add("com.dedalow.regresionCustomAction.Test_PSFUEND02E0117");
+				testCases.add("com.dedalow.regresionCustomAction.Test_PSFUEND02E0116");
 			
             break;
 			
             case "complete":
-                	testCases.add("com.dedalow.testSuiteModel.Test_TestCaseModel");
+                	testCases.add("com.dedalow.regressionCADActions.Test_PSFUEND02E0108");
+				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0109");
+				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0111");
+				testCases.add("com.dedalow.regressionOtherActions.Test_PSFUEND02E0110");
+				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0106");
+				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0105");
+				testCases.add("com.dedalow.regressionOther.Test_PSFUEND02E0107");
+				testCases.add("com.dedalow.regressionCAD.Test_PSFUEND02E0104");
+				testCases.add("com.dedalow.release5.Test_PSFUEND02E0113");
+				testCases.add("com.dedalow.release5.Test_PSFUEND02E0112");
+				testCases.add("com.dedalow.release6.Test_PSFUEND02E0114");
+				testCases.add("com.dedalow.regresionCustomAction.Test_PSFUEND02E0115");
+				testCases.add("com.dedalow.regresionCustomAction.Test_PSFUEND02E0117");
+				testCases.add("com.dedalow.regresionCustomAction.Test_PSFUEND02E0116");
 			
                 break;
             default:
@@ -356,12 +401,14 @@ public class Utils {
         String suiteName = (String) reflectiveClass.getField("suiteName").get(reflectiveClass);
         String caseName = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
         Constant constant = (Constant) reflectiveClass.getField("constant").get(reflectiveClass);
-        
+        String driverType = prop.getProperty("WebDriver.BROWSER").toLowerCase().replace(" ", "");
+        List<String> listNamesFirefox = Arrays.asList("testcontainerfirefox", "testcontainermozilla", "testcontainermozillafirefox", "testcontainergecko");
+
         constant.results.add(finalResult);
         Report.addResults(suiteName, caseName, constant.results);
         constant.initialize.flush();
         for (Map.Entry<String, WebDriver> context : constant.contextsDriver.entrySet()) {
-            if (!context.getValue().toString().contains("Firefox")) {
+            if (!listNamesFirefox.contains(driverType)) {
                 context.getValue().close();
             }
             context.getValue().quit();
@@ -378,7 +425,10 @@ public class Utils {
         String caseName = (String) reflectiveClass.getField("caseName").get(reflectiveClass);
 
         Report.reportExcel(reflectiveClass);
-           
+        Report.reportTestlink(screenShot, suiteName, caseName);
+    } catch (NullPointerException | MalformedURLException e) {
+        Report.reportErrors("Can not stablish connection with Testlink server");
+        Report.reportErrors(e.getMessage());   
     } catch (Exception e) {
         Report.reportErrors(e.getMessage());
     }

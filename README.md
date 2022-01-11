@@ -1,4 +1,4 @@
-# PROJECT: 3146qa
+# PROJECT: supertstact
     This project contains automated tests based on a Java Selenium JUNIT 5 and Maven architecture.
 	In this project we can find features like:
 	Logs generation, automated screenshot creation, testlink integration, and usage of Excel files as input datasets for Test Cases.
@@ -158,7 +158,7 @@ Selecting all Test Plan, set blank both properties
 
 **Run jar file reading config.properties file configuration, execute this command from the target folder**
 
-	java -jar 3146qaExe.jar
+	java -jar supertstactExe.jar
 
 ### How execute using MAVEN
 
@@ -201,5 +201,30 @@ I don’t know how to open the console in the unzipped folder
 
 
 ## This project has follow TestSuites & TestCases available
-**TestSuiteModel**
-- Test_TestCaseModel
+**RegressionCADActions**
+- Test_PSFUEND02E0108
+
+**RegressionOtherActions**
+- Test_PSFUEND02E0109
+- Test_PSFUEND02E0111
+- Test_PSFUEND02E0110
+
+**RegressionOther**
+- Test_PSFUEND02E0106
+- Test_PSFUEND02E0105
+- Test_PSFUEND02E0107
+
+**RegressionCAD**
+- Test_PSFUEND02E0104
+
+**Release5**
+- Test_PSFUEND02E0113
+- Test_PSFUEND02E0112
+
+**Release6**
+- Test_PSFUEND02E0114
+
+**RegresionCustomAction**
+- Test_PSFUEND02E0115
+- Test_PSFUEND02E0117
+- Test_PSFUEND02E0116

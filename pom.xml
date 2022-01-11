@@ -7,7 +7,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
     <groupId>java.com.dedalow</groupId>
-    <artifactId>3146qa</artifactId>
+    <artifactId>supertstact</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 	
 	<developers>
@@ -29,12 +29,12 @@
 		<rest-assured.version>3.0.7</rest-assured.version>
 		<extentreports.version>3.1.2</extentreports.version>
 		<oracle.ojdbc8.version>19.3.0.0</oracle.ojdbc8.version>
-		
+		<testlink.version>1.9.19-0</testlink.version>
 	</properties>
 	
 	<!-- Build and plugins -->
 	<build>
-		<finalName>3146qaExe</finalName>
+		<finalName>supertstactExe</finalName>
 		<sourceDirectory>src/test/java</sourceDirectory>
 		<plugins>
 			<!-- Compile the project -->
@@ -263,6 +263,25 @@
 			<version>${junit5.version}</version>
 		</dependency>
 		
+		<!-- TESTCONTAINER -->
+		<!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers -->
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>selenium</artifactId>
+			<version>1.15.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>1.15.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+
         <!-- API Rest Testing -->
 		<!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
 		<dependency>
@@ -307,7 +326,13 @@
 			<version>${oracle.ojdbc8.version}</version>
 		</dependency>
 		
-		
+		<!-- TESTLINK REPORT -->
+			<!-- https://mvnrepository.com/artifact/br.eti.kinoshita/testlink-java-api -->
+			<dependency>
+				<groupId>br.eti.kinoshita</groupId>
+				<artifactId>testlink-java-api</artifactId>
+				<version>${testlink.version}</version>
+			</dependency>
 		
 		<!-- EXTENT REPORTS -->
 		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->

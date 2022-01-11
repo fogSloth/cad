@@ -1,4 +1,4 @@
-package com.dedalow.testSuiteModel;
+package com.dedalow.regressionOtherActions;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +14,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import com.dedalow.ContainerManager;
+import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -32,16 +34,16 @@ import com.dedalow.Launcher;
 import com.aventstack.extentreports.Status;
 
 
-import com.dedalow.pages.SearchSpainPage;
+import com.dedalow.actions.UploadFileAction;
 
-public class Test_TestCaseModel {
+public class Test_PSFUEND02E0111 {
    
     private static Class reflectiveClass;
     private static Launcher launcher = new Launcher();
     public static DriverInit driverInit = new DriverInit();
     public static Constant constant = launcher.constant;
-    public static String suiteName = "TestSuiteModel";
-    public static String caseName = Test_TestCaseModel.class.getSimpleName();
+    public static String suiteName = "RegressionOtherActions";
+    public static String caseName = Test_PSFUEND02E0111.class.getSimpleName();
     public static String modelDocumentation = "";
     public static WebDriver driver;
 
@@ -54,10 +56,18 @@ public class Test_TestCaseModel {
     public static HashMap<String, String> excelSheet;
 
     
-	private static SearchSpainPage searchSpainPage;
+	private static UploadFileAction uploadFileAction;
     
-	private static By EspaaVariable1 = By.id("firstHeading");
     
+	@BeforeAll
+    public static void checkDocker() {
+        try {
+            Runtime.getRuntime().exec("docker --version");
+        } catch (IOException e) {
+            constant.logger.severe("Cannot run program \"docker\": CreateProcess error=2, System can not find docker installed.");
+        }
+    }
+
     @BeforeEach
     public void beforeEach() throws Exception {
         try {
@@ -74,30 +84,36 @@ public class Test_TestCaseModel {
 		}
     }
 
-    
-
-    @Test
-	@DisplayName("Test_TestCaseModel")
-	public void test() throws Exception {
+    public void before() throws Exception {
         try {
             
             
-            		HashMap<String, String> executeVariable = new HashMap<String, String>();
-			executeVariable.put("España", "España");
+            Report.reportLog(reflectiveClass, "Before of execution", "INFO", 0, Status.PASS, false, "", "", null);
+            
 			
-			
+			uploadFileAction.doUploadFileAction();
+            Report.reportLog(reflectiveClass, "Action UploadFileAction finished","INFO", 0, Status.PASS, false, "", "", null);
+            
+            
+        } catch (AssertionError | Exception e) {
+            finalResult = "BQ";
+            throw new Exception(e);
+        }
+    }
+
+    @Test
+	@DisplayName("Test_PSFUEND02E0111")
+	public void test() throws Exception {
+        try {
+            before();
+            
+            
             Report.reportLog(reflectiveClass, "Start of execution", "INFO", 0, Status.PASS, false, "", "", null);
             
-			driver.get("https://es.wikipedia.org/wiki/Wikipedia:Portada");
-            Report.reportLog(reflectiveClass, "Navigated to " + "https://es.wikipedia.org/wiki/Wikipedia:Portada", "INFO", 0, Status.PASS, true, "", "", null);
-			searchSpainPage.searchSpain(executeVariable);
-            
 			
-			assertTrue(executeVariable.get("España").equals(driver.findElement(EspaaVariable1).getText()), "Field EspaaVariable1 not found in assertion");
-        	Report.reportLog(reflectiveClass, "The field "+executeVariable.get("España")+" has been found on assertion", "INFO", 0, Status.PASS, true, "", "", null);
+			uploadFileAction.doUploadFileAction();
+            Report.reportLog(reflectiveClass, "Action UploadFileAction finished","INFO", 0, Status.PASS, false, "", "", null);
             
-            
-            Report.reportLog(reflectiveClass, "The field FrontEndVerdictStepsAction has been found on assertions", "INFO", 0, Status.PASS, false, "", "", null);
             
         } catch (AssertionError | Exception e) {
             Report.reportErrors(e.getMessage());
@@ -109,22 +125,43 @@ public class Test_TestCaseModel {
         }
     }
 
-    
+    public void after() {
+        constant.isAfter = true;
+        constant.isBackend = false;
+        try {
+            
+            
+            Report.reportLog(reflectiveClass, "After of execution", "INFO", 0, Status.PASS, false, "", "", null);
+            
+			
+			uploadFileAction.doUploadFileAction();
+            Report.reportLog(reflectiveClass, "Action UploadFileAction finished","INFO", 0, Status.PASS, false, "", "", null);
+            
+            
+        } catch (AssertionError | Exception e) {
+            Report.reportErrors(e.getMessage());
+			constant.captureLog = "KO";
+			constant.afterResult = "not succesfully";
+            Report.reportLog(reflectiveClass, e.getMessage(), level, 0, Status.WARNING, true, "isCatch", "", Throwables.getStackTraceAsString(e));
+        }
+    }
 
     @AfterEach
     public void afterEach()  {
         boolean screenShot = true;
-        
+        after();
         
         if (finalResult == "OK") {
-            Report.reportLog(reflectiveClass, "Result on Test_TestCaseModel: " + finalResult, "INFO", 0, Status.PASS, false, "", "", null);
+            Report.reportLog(reflectiveClass, "Result on Test_PSFUEND02E0111: " + finalResult, "INFO", 0, Status.PASS, false, "", "", null);
         } else {
-            Report.reportLog(reflectiveClass, "Result on Test_TestCaseModel: " + finalResult, "INFO", 0, Status.FAIL, false, "", "", null);
+            Report.reportLog(reflectiveClass, "Result on Test_PSFUEND02E0111: " + finalResult, "INFO", 0, Status.FAIL, false, "", "", null);
         }
-        constant.logger.info("Result on Test_TestCaseModel: " + finalResult);
+        constant.logger.info("Result on Test_PSFUEND02E0111: " + finalResult);
+		constant.logger.info("After execution finished: " + constant.afterResult);
         Utils.tearDown(reflectiveClass);
 		Utils.finalReports(reflectiveClass, screenShot);
 		constant.initialize.flush();
+		ContainerManager.stopContainer(finalResult, caseName);
     }
     
     
@@ -149,10 +186,10 @@ public class Test_TestCaseModel {
 
     public static WebDriver setUpEnvironment(File folderDownloads, Properties prop,
         String nameDriver, Map<String, WebDriver> contextsDriver) throws Exception {
-        driver = driverInit.driverSelector(folderDownloads, prop, nameDriver, contextsDriver);
+        driver = driverInit.initDockerDriver(folderDownloads, prop, nameDriver, contextsDriver, folderTestCase);
             handler = driver.getWindowHandle();
-        reflectiveClass = Utils.getReflective(Test_TestCaseModel.class.getCanonicalName());
-		searchSpainPage = new SearchSpainPage(reflectiveClass);
+        reflectiveClass = Utils.getReflective(Test_PSFUEND02E0111.class.getCanonicalName());
+		uploadFileAction = new UploadFileAction(reflectiveClass);
         return driver;
     }
 }
