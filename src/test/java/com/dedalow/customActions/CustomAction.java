@@ -63,7 +63,7 @@ public class CustomAction {
      * @throws Exception
      */
     public void doCustomAction() throws Exception {
-        dependencies.driver.findElement(By.id("searchInput")).sendKeys("MichaelJackson"));
+        dependencies.driver.findElement(By.id("searchInput\")).sendKeys(\"MichaelJackson"));
         Report.reportLog(dependencies, "CustomAction action completed", "INFO", 0);
     }
 }
