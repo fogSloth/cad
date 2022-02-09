@@ -43,7 +43,6 @@ public class GivenAction{
     private HashMap<String, String> excelSheet;
     
       
-	private By RealizaDescarga = By.xpath("//body/section[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[2]/a[1]");
     
     public GivenAction(Class reflectiveClass) throws Exception {
         this.reflectiveClass = reflectiveClass;
@@ -65,43 +64,35 @@ public class GivenAction{
         this.excelSheet = (HashMap) reflectiveClass.getField("excelSheet").get(reflectiveClass);
     }
 
-    public GivenAction FrontEndNavigate () {
-        driver.get("https://320ytmp3.com/es6/download?type=ytmp3&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dl4pQbkI7y98");
-        Report.reportLog(reflectiveClass, "FrontEndNavigate action completed", "INFO", 0, Status.PASS, true, "", "", null);
+    public GivenAction HomePage () {
+        driver.get(prop.getProperty("WEB_URL") + "");
+        Report.reportLog(reflectiveClass, "HomePage action completed", "INFO", 0, Status.PASS, true, "", "", null);
+        return this;
+    }
+
+	public GivenAction NewBrowserWIKIPEDIA() throws Exception {
+        this.driver = (WebDriver) reflectiveClass.getMethod("setUpEnvironment", File.class, Properties.class, String.class, Map.class)
+        .invoke(reflectiveClass, folderDownloads, prop, "WIKIPEDIA", constant.contextsDriver);
+        Report.reportLog(reflectiveClass, "NewBrowserWIKIPEDIA action completed", "INFO", 1000, Status.PASS, true, "", "", null);
+        return this;
+    }
+
+	public GivenAction WIKIPEDIA () {
+        driver.get("https://es.wikipedia.org/wiki/Wikipedia:Portada");
+        Report.reportLog(reflectiveClass, "WIKIPEDIA action completed", "INFO", 0, Status.PASS, true, "", "", null);
         return this;
     }
 
 	
-      
-	public GivenAction RealizaDescarga() throws Exception {
-        
-            
-            
-        String explorerDownloads = prop.getProperty("FOLDER_DOWNLOAD").equals("default")
-        ? folderDownloads.getAbsolutePath() : prop.getProperty("FOLDER_DOWNLOAD");
-        File directoryPath = new File(explorerDownloads);
-        int directoryLength = directoryPath.listFiles().length;
-
-        if (driver.toString().contains("internet explorer")) {
-        String linkLocation = driver.findElement(RealizaDescarga).getAttribute("href");
-
-        Process process = Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"cd " + explorerDownloads + " && "
-        + System.getProperty("user.dir") +"/resources/tool/wget.exe " + linkLocation  + "&& exit" );
-        } else {
-            driver.findElement(RealizaDescarga).click();
-        }
-        assertTrue(Utils.checkDownload(reflectiveClass, explorerDownloads, directoryLength,
-            directoryPath), "File not found in " + explorerDownloads);
-            Report.reportLog(reflectiveClass, "RealizaDescarga downloaded", "INFO", 0, Status.PASS, true, "", "", null);
-            return this;
-      }
-      
     public void doGivenAction() throws Exception {
     
     
-		FrontEndNavigate();
+		HomePage();
     
-		RealizaDescarga();
+		NewBrowserWIKIPEDIA();
+    	Thread.sleep(1000);
+
+		WIKIPEDIA();
     
 		
     }

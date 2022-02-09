@@ -7,12 +7,12 @@
 	
 	<modelVersion>4.0.0</modelVersion>
     <groupId>java.com.dedalow</groupId>
-    <artifactId>descargatarde</artifactId>
+    <artifactId>supertstact</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 	
 	<developers>
 		<developer>
-			<name>rcontrcl</name>
+			<name>guest</name>
 			<roles></roles>
 		</developer>
 	</developers>
@@ -23,18 +23,18 @@
 		<maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<selenium.version>3.141.59</selenium.version>
+		<selenium.version>4.1.0</selenium.version>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<junit5.version>5.4.0</junit5.version>
 		<rest-assured.version>3.0.7</rest-assured.version>
 		<extentreports.version>3.1.2</extentreports.version>
 		<oracle.ojdbc8.version>19.3.0.0</oracle.ojdbc8.version>
-		
+		<testlink.version>1.9.19-0</testlink.version>
 	</properties>
 	
 	<!-- Build and plugins -->
 	<build>
-		<finalName>descargatardeExe</finalName>
+		<finalName>supertstactExe</finalName>
 		<sourceDirectory>src/test/java</sourceDirectory>
 		<plugins>
 			<!-- Compile the project -->
@@ -171,42 +171,6 @@
 							<destinationFile>${project.build.directory}/README.md</destinationFile>
 						</configuration>
 					</execution>
-					<!-- Copy the file chromedriver.exe -->
-					<execution>
-						<id>copy-file-4</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<sourceFile>resources/drivers/chromedriver.exe</sourceFile>
-							<destinationFile>${project.build.directory}/resources/drivers/chromedriver.exe</destinationFile>
-						</configuration>
-					</execution>
-					<!-- Copy the file geckodriver.exe -->
-					<execution>
-						<id>copy-file-5</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<sourceFile>resources/drivers/geckodriver.exe</sourceFile>
-							<destinationFile>${project.build.directory}/resources/drivers/geckodriver.exe</destinationFile>
-						</configuration>
-					</execution>
-					<!-- Copy the file IEDriverServer.exe -->
-					<execution>
-						<id>copy-file-6</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<sourceFile>resources/drivers/IEDriverServer.exe</sourceFile>
-							<destinationFile>${project.build.directory}/resources/drivers/IEDriverServer.exe</destinationFile>
-						</configuration>
-					</execution>
 					<!-- Copy the file wget.exe -->
 					<execution>
 						<id>copy-file-7</id>
@@ -262,6 +226,14 @@
 			<artifactId>junit-jupiter-params</artifactId>
 			<version>${junit5.version}</version>
 		</dependency>
+
+		<!-- WEBDRIVERMANAGER -->
+		<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+		<dependency>
+    		<groupId>io.github.bonigarcia</groupId>
+    		<artifactId>webdrivermanager</artifactId>
+    		<version>5.0.3</version>
+		</dependency>
 		
         <!-- API Rest Testing -->
 		<!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
@@ -307,7 +279,13 @@
 			<version>${oracle.ojdbc8.version}</version>
 		</dependency>
 		
-		
+		<!-- TESTLINK REPORT -->
+			<!-- https://mvnrepository.com/artifact/br.eti.kinoshita/testlink-java-api -->
+			<dependency>
+				<groupId>br.eti.kinoshita</groupId>
+				<artifactId>testlink-java-api</artifactId>
+				<version>${testlink.version}</version>
+			</dependency>
 		
 		<!-- EXTENT REPORTS -->
 		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
@@ -377,6 +355,17 @@
 		    <artifactId>jaxb-api</artifactId>
 		    <version>2.3.0</version>
 		</dependency>
-		
-    </dependencies>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>1.7.25</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-simple</artifactId>
+		    <version>1.7.25</version>
+		</dependency>
+	</dependencies>
 </project>

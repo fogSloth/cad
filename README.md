@@ -1,4 +1,4 @@
-# PROJECT: descargatarde
+# PROJECT: supertstact
     This project contains automated tests based on a Java Selenium JUNIT 5 and Maven architecture.
 	In this project we can find features like:
 	Logs generation, automated screenshot creation, testlink integration, and usage of Excel files as input datasets for Test Cases.
@@ -37,9 +37,13 @@ For using multiple parameters, you should separate all parameters with comma and
 
 **Configuring Browser:**
 
-We can choose between *Chrome, Firefox or Explorer* to run our Test Plan.
+We can choose between *Chrome, Firefox, Edge or Explorer* to run our Test Plan.
 
 	Webdriver.DRIVER = Chrome
+
+We can select the driver version that we want, writting the number version.
+
+	Webdriver.DRIVER_VERSION = 95.0.4638.69
 	
 #####If you choose *Explorer* you have to do a few changes on Internet Explorer to run our Test Cases:
 
@@ -158,7 +162,7 @@ Selecting all Test Plan, set blank both properties
 
 **Run jar file reading config.properties file configuration, execute this command from the target folder**
 
-	java -jar descargatardeExe.jar
+	java -jar supertstactExe.jar
 
 ### How execute using MAVEN
 
@@ -201,5 +205,25 @@ I don’t know how to open the console in the unzipped folder
 
 
 ## This project has follow TestSuites & TestCases available
-**TestSuiteModel**
-- Test_TestCaseModel
+**RegressionCADActions**
+- Test_PSFUEND02E0108
+
+**RegressionOtherActions**
+- Test_PSFUEND02E0109
+- Test_PSFUEND02E0111
+- Test_PSFUEND02E0110
+
+**RegressionCAD**
+- Test_PSFUEND02E0104
+
+**RegressionOther**
+- Test_PSFUEND02E0106
+- Test_PSFUEND02E0105
+- Test_PSFUEND02E0107
+
+**Release5**
+- Test_PSFUEND02E0113
+- Test_PSFUEND02E0112
+
+**Release6**
+- Test_PSFUEND02E0114

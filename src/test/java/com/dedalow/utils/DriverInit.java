@@ -1,11 +1,11 @@
 package com.dedalow.utils;
 import java.io.File;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.WebDriver;
@@ -14,7 +14,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverInit {
 
@@ -28,13 +32,10 @@ public class DriverInit {
     public List<String> listNamesChrome = Arrays.asList("chrome", "googlechrome");
     public List<String> listNamesFirefox = Arrays.asList("firefox", "mozilla", "mozillafirefox", "gecko");
     public List<String> listNamesExplorer = Arrays.asList("ie", "internetexplorer", "explorer", "iexplorer");
+    public List<String> listNameseEdge = Arrays.asList("edge", "msedge");
     
 	public WebDriver initChromedriver(Properties prop, File folderDownloads) throws Exception {
         try {
-            if (driverPath.isEmpty()) {
-                driverPath = "resources/drivers/chromedriver.exe";
-                logger.info("DRIVER_PATH is empty, default route resources/drivers/chromedriver.exe will be used.");
-            }
             HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
             chromePrefs.put("profile.default_content_settings.popups", 0);
             chromePrefs.put("download.default_directory", folderDownloads.getAbsolutePath());
@@ -43,22 +44,16 @@ public class DriverInit {
                 optionsChrome.addArguments(driverOptions);
             }
             optionsChrome.setExperimentalOption("prefs", chromePrefs);
-            System.setProperty("webdriver.chrome.driver", driverPath);
+            WebDriverManager.chromedriver().driverVersion(prop.getProperty("WebDriver.DRIVER_VERSION")).setup();
             WebDriver chromeDriver = new ChromeDriver(optionsChrome);
             return chromeDriver;
         } catch (IllegalStateException e) {
             throw new Exception (e.getMessage());
-        } catch (Exception ex) {
-            throw new Exception ("The browser and the driver path do not match");
         }
     }
         
 	public WebDriver initGeckodriver(Properties prop, File folderDownloads) throws Exception {
         try {
-            if (driverPath.isEmpty()) {
-                driverPath = "resources/drivers/geckodriver.exe";
-                logger.info("DRIVER_PATH is empty, default route resources/drivers/geckodriver.exe will be used.");
-            }
             FirefoxProfile profile = new FirefoxProfile();
             profile.setPreference("browser.download.manager.useWindow", false);
             profile.setPreference("browser.download.dir", folderDownloads.getAbsolutePath());
@@ -68,34 +63,44 @@ public class DriverInit {
                 + "application/binary, text/csv, application/csv, application/excel,"
                 + "text/comma-separated-values, text/xml, application/xml");
             profile.setPreference("browser.download.folderList",2);
-            System.setProperty("webdriver.gecko.driver", driverPath);
             FirefoxOptions optionsFirefox = new FirefoxOptions();
             if (!prop.getProperty("WebDriver.DRIVER_OPTIONS").isEmpty()) {
-            	optionsFirefox.addArguments(driverOptions);
+                optionsFirefox.addArguments(driverOptions);
             }
             optionsFirefox.setProfile(profile);
+            WebDriverManager.firefoxdriver().driverVersion(prop.getProperty("WebDriver.DRIVER_VERSION")).setup();
             WebDriver geckoDriver = new FirefoxDriver(optionsFirefox);
             return geckoDriver;
         } catch (IllegalStateException e) {
             throw new Exception (e.getMessage());
-        } catch (Exception ex) {
-            throw new Exception ("The browser and the driver path do not match");
         }
     }
         
 	public WebDriver initIEDriverServer(Properties prop, File folderDownloads) throws Exception {
         try {
-            if (driverPath.isEmpty()) {
-                driverPath = "resources/drivers/IEDriverServer.exe";
-                logger.info("DRIVER_PATH is empty, default route resources/drivers/IEDriverServer.exe will be used.");
-            }
-            System.setProperty("webdriver.ie.driver", driverPath);
+            WebDriverManager.iedriver().driverVersion(prop.getProperty("WebDriver.DRIVER_VERSION")).arch32().setup();
             WebDriver ieDriver = new InternetExplorerDriver();
             return ieDriver;
         } catch (IllegalStateException e) {
             throw new Exception (e.getMessage());
-        } catch (Exception ex) {
-            throw new Exception ("The browser and the driver path do not match");
+        }
+    }
+        
+	public WebDriver initEdgedriver(Properties prop, File folderDownloads) throws Exception {
+        try {
+            HashMap<String, Object> edgePrefs = new HashMap<String, Object>();
+            edgePrefs.put("profile.default_content_settings.popups", 0);
+            edgePrefs.put("download.default_directory", folderDownloads.getAbsolutePath());
+            EdgeOptions optionsEdge = new EdgeOptions();
+            if (!prop.getProperty("WebDriver.DRIVER_OPTIONS").isEmpty()) {
+                optionsEdge.addArguments(driverOptions);
+            }
+            optionsEdge.setExperimentalOption("prefs", edgePrefs);
+            WebDriverManager.edgedriver().driverVersion(prop.getProperty("WebDriver.DRIVER_VERSION")).setup();
+            WebDriver edgeDriver = new EdgeDriver(optionsEdge);
+            return edgeDriver;
+        } catch (IllegalStateException e) {
+            throw new Exception (e.getMessage());
         }
     }
     
@@ -103,7 +108,6 @@ public class DriverInit {
         if (contextsDriver.get(nameDriver) != null) { driver = contextsDriver.get(nameDriver); }
         else {
             driverType = prop.getProperty("WebDriver.BROWSER").toLowerCase().replace(" ", "");
-            driverPath = prop.getProperty("WebDriver.DRIVER_PATH").replace("\\", "/").replaceAll("[\\\\/]+", "/");
             driverOptions = prop.getProperty("WebDriver.DRIVER_OPTIONS").split(", ");
             pathFolderDownloads = prop.getProperty("FOLDER_DOWNLOAD");
             timeOut = Integer.parseInt(prop.getProperty("WEB_TIMEOUT"));
@@ -118,16 +122,18 @@ public class DriverInit {
                 driver = initGeckodriver(prop, folderDownloads);
             } else if (listNamesExplorer.contains(driverType)) {
                 driver = initIEDriverServer(prop, folderDownloads);
+            } else if (listNameseEdge.contains(driverType)) {
+            	driver = initEdgedriver(prop, folderDownloads);
             } else {
-                logger.info("The indicated browser does not match the available browsers [Chrome, Firefox, IExplorer], it is launched by default on chrome");
+                logger.info("The indicated browser does not match the available browsers [Chrome, Firefox, IExplorer, Edge], it is launched by default on chrome");
                 driver = initChromedriver(prop, folderDownloads);
             }
             
-            driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOut));
             contextsDriver.put(nameDriver, driver);
-            
+
         }
-        
+
         return driver;
     }
 

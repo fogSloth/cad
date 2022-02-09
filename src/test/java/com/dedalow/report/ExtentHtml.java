@@ -50,7 +50,7 @@ import com.dedalow.utils.Utils;
 		
 		public static void createTest() {
 			PropertyConfigurator.configure(resources + fileSystem.getSeparator() + "log4j.properties");
-			htmlReporter = new ExtentHtmlReporter(constant.folderLogs + fileSystem.getSeparator() + "descargatardeResults.html");
+			htmlReporter = new ExtentHtmlReporter(constant.folderLogs + fileSystem.getSeparator() + "supertstactResults.html");
 			htmlReporter.loadXMLConfig(System.getProperty("user.dir") + fileSystem.getSeparator() + "extent_config.xml");
 			customizeHtml(htmlReporter);
 			isNotInitializated = true;
